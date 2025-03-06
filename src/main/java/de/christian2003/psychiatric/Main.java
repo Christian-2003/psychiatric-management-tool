@@ -2,8 +2,8 @@ package de.christian2003.psychiatric;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.christian2003.psychiatric.database.LocalDateDeserializer;
-import de.christian2003.psychiatric.database.LocalDateSerializer;
+import de.christian2003.psychiatric.database.file.gson.LocalDateDeserializer;
+import de.christian2003.psychiatric.database.file.gson.LocalDateSerializer;
 import de.christian2003.psychiatric.model.people.PersonalData;
 import java.time.LocalDate;
 

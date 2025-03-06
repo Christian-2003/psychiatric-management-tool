@@ -1,11 +1,14 @@
 # Psychiatric Management Tool
 > **Important:** Please note that the contents of this file are in German, since this file is important for a project at a German university.
 
+Dieses Dokument beinhaltet eine vollständige Dokumentation des Psychiatric Management Tools.
+
 ###### Inhaltsverzeichnis
 1. [Domain Driven Design](#1-domain-driven-design)
     * [Analyse der Ubiquitous Language](#analyse-der-ubiquitous-language)
     * [Analyse und Begründung der verwendeten Muster](#analyse-und-begründung-der-verwendeten-muster)
 2. [Clean Architecture](#2-clean-architecture)
+    * [Schichtarchitektur planen und begründen](#schichtarchitektur-planen-und-begründen)
 3. [Programming Principles](#3-programming-principles)
 4. [Refactoring](#4-refactoring)
 5. [Entwurfsmuster](#5-entwurfsmuster)
@@ -53,7 +56,11 @@ Klasse | Taktisches Muster | Begründung
 <br/>
 
 ## 2 Clean Architecture
-Hello, World!
+Im Nachfolgenden wird die Schichtarchitektur geplant und begründet.
+
+### Schichtarchitektur planen und begründen
+Die Schichtenarchitektur kann durch nachfolgendes Diagramm visualisiert werden:
+![](../img/architecture.drawio.svg)
 
 <br/>
 
