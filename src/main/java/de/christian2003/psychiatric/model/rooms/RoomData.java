@@ -3,7 +3,7 @@ package de.christian2003.psychiatric.model.rooms;
 import java.util.UUID;
 
 
-public class RoomData {
+public final class RoomData {
 
     private final UUID roomId;
 

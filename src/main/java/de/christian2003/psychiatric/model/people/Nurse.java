@@ -9,16 +9,16 @@ public class Nurse {
 
     private final PersonalData personalData;
 
-    private final EmployeeData employeeData;
+    private UUID officeId;
 
 
-    public Nurse(UUID employeeId, PersonalData personalData, EmployeeData employeeData) throws NullPointerException {
-        if (employeeId == null || personalData == null || employeeData == null) {
+    public Nurse(UUID employeeId, UUID officeId, PersonalData personalData) throws NullPointerException {
+        if (employeeId == null || officeId == null || personalData == null) {
             throw new NullPointerException();
         }
         this.employeeId = employeeId;
         this.personalData = personalData;
-        this.employeeData = employeeData;
+        this.officeId = officeId;
     }
 
 
@@ -30,8 +30,15 @@ public class Nurse {
         return personalData;
     }
 
-    public EmployeeData getEmployeeData() {
-        return employeeData;
+    public UUID getOfficeId() {
+        return officeId;
+    }
+
+    public void assignToOffice(UUID officeId) throws NullPointerException {
+        if (officeId == null) {
+            throw new NullPointerException();
+        }
+        this.officeId = officeId;
     }
 
 

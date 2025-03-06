@@ -5,7 +5,6 @@ public class Office {
     private final RoomData roomData;
 
 
-
     public Office(RoomData roomData) throws NullPointerException {
         if (roomData == null) {
             throw new NullPointerException();
