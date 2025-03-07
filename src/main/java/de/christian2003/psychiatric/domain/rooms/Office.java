@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.model.rooms;
+package de.christian2003.psychiatric.domain.rooms;
 
 public class Office {
 

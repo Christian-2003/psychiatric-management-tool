@@ -1,7 +1,8 @@
-package de.christian2003.psychiatric.database.file;
+package de.christian2003.psychiatric.adapters.repositories;
 
-import de.christian2003.psychiatric.database.PatientRepository;
-import de.christian2003.psychiatric.model.people.Patient;
+import de.christian2003.psychiatric.application.repositories.PatientRepository;
+import de.christian2003.psychiatric.plugins.FileSerializer;
+import de.christian2003.psychiatric.domain.people.Patient;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;

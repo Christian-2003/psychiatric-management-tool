@@ -1,10 +1,10 @@
-package de.christian2003.psychiatric.database.file;
+package de.christian2003.psychiatric.plugins;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import de.christian2003.psychiatric.database.file.gson.LocalDateDeserializer;
-import de.christian2003.psychiatric.database.file.gson.LocalDateSerializer;
+import de.christian2003.psychiatric.plugins.gson.LocalDateDeserializer;
+import de.christian2003.psychiatric.plugins.gson.LocalDateSerializer;
 
 import java.io.*;
 import java.lang.reflect.Type;

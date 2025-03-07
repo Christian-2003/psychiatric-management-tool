@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.model.people;
+package de.christian2003.psychiatric.domain.people;
 
 import java.time.LocalDate;
 import java.util.Objects;

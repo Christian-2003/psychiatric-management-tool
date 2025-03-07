@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.database.file.gson;
+package de.christian2003.psychiatric.plugins.gson;
 
 import com.google.gson.*;
 import java.lang.reflect.Type;
