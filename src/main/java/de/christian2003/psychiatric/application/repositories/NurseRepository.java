@@ -9,12 +9,12 @@ import java.util.UUID;
 
 public interface NurseRepository {
 
-    Nurse getNurseById(UUID id) throws IOException;
+    Nurse getNurseById(UUID id) throws NullPointerException;
 
-    List<Nurse> getAllNurses() throws IOException;
+    List<Nurse> getAllNurses();
 
-    void addNurse(Nurse nurse) throws NullPointerException, IOException;
+    void addNurse(Nurse nurse) throws NullPointerException;
 
-    void deleteNurse(Nurse nurse) throws NullPointerException, IOException;
+    void deleteNurse(Nurse nurse) throws NullPointerException;
 
 }

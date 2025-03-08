@@ -8,12 +8,12 @@ import java.util.UUID;
 
 public interface OfficeRepository {
 
-    Office getOfficeById(UUID id) throws IOException;
+    Office getOfficeById(UUID id);
 
-    List<Office> getAllOffices() throws IOException;
+    List<Office> getAllOffices();
 
-    void addOffice(Office office) throws NullPointerException, IOException;
+    void addOffice(Office office) throws NullPointerException;
 
-    void deleteOffice(Office office) throws NullPointerException, IOException;
+    void deleteOffice(Office office) throws NullPointerException;
 
 }
