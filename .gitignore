@@ -36,3 +36,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Project files ###
+crisisinterventionareas.json
+nurses.json
+offices.json
+patients.json

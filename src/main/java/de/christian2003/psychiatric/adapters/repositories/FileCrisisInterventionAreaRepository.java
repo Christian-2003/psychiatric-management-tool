@@ -16,7 +16,7 @@ public class FileCrisisInterventionAreaRepository implements CrisisInterventionA
 
 
     public FileCrisisInterventionAreaRepository() {
-        serializer = new FileSerializer<>("crisisinterventionareas.json");
+        serializer = new FileSerializer<>("crisisinterventionareas.json", CrisisInterventionArea.class);
         crisisInterventionAreas = new ArrayList<>();
     }
 

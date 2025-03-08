@@ -19,7 +19,7 @@ public class FileNurseRepository implements NurseRepository, SavableRepository {
 
 
     public FileNurseRepository() {
-        serializer = new FileSerializer<>("nurses.json");
+        serializer = new FileSerializer<>("nurses.json", Nurse.class);
         nurses = new ArrayList<>();
     }
 

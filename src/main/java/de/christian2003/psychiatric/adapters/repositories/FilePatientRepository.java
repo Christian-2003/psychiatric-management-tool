@@ -19,7 +19,7 @@ public class FilePatientRepository implements PatientRepository, SavableReposito
 
 
     public FilePatientRepository() {
-        serializer = new FileSerializer<>("patients.json");
+        serializer = new FileSerializer<>("patients.json", Patient.class);
         patients = new ArrayList<>();
     }
 

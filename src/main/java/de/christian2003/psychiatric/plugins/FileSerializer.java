@@ -21,7 +21,7 @@ public class FileSerializer<T> {
     private final String fileName;
 
 
-    public FileSerializer(String fileName) throws NullPointerException {
+    public FileSerializer(String fileName, Class<T> clazz) throws NullPointerException {
         if (fileName == null) {
             throw new NullPointerException();
         }
@@ -32,7 +32,8 @@ public class FileSerializer<T> {
         builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
         gson = builder.create();
 
-        type = new TypeToken<List<T>>() {}.getType();
+        type = TypeToken.getParameterized(List.class, clazz).getType();
+        //type = new TypeToken<List<T>>() {}.getType();
     }
 
 
@@ -40,6 +41,12 @@ public class FileSerializer<T> {
         if (items == null) {
             throw new NullPointerException();
         }
+
+        File file = new File(fileName);
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
         try {
             String json = gson.toJson(items, type);
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
@@ -53,20 +60,26 @@ public class FileSerializer<T> {
 
 
     public List<T> loadAll() throws IOException {
-        try {
-            StringBuilder json = new StringBuilder();
-            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-                while (reader.ready()) {
-                    json.append(reader.readLine());
+        File file = new File(fileName);
+        if (file.exists()) {
+            try {
+                StringBuilder json = new StringBuilder();
+                try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+                    while (reader.ready()) {
+                        json.append(reader.readLine());
+                    }
                 }
+                if (!json.isEmpty()) {
+                    return gson.fromJson(json.toString(), type);
+                }
+                return new ArrayList<>();
             }
-            if (!json.isEmpty()) {
-                return gson.fromJson(json.toString(), type);
+            catch (Exception e) {
+                throw new IOException(e.getMessage());
             }
-            return new ArrayList<>();
         }
-        catch (Exception e) {
-            throw new IOException(e.getMessage());
+        else {
+            return new ArrayList<>();
         }
     }
 

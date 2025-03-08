@@ -19,7 +19,7 @@ public class FileOfficeRepository implements OfficeRepository, SavableRepository
 
 
     public FileOfficeRepository() {
-        serializer = new FileSerializer<>("offices.json");
+        serializer = new FileSerializer<>("offices.json", Office.class);
         offices = new ArrayList<>();
     }
 
