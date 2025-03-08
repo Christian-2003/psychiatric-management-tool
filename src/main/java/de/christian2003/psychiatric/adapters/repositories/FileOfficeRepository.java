@@ -43,7 +43,7 @@ public class FileOfficeRepository implements OfficeRepository, SavableRepository
     }
 
     @Override
-    public void addOffice(Office office) throws NullPointerException {
+    public void insertOffice(Office office) throws NullPointerException {
         if (office == null) {
             throw new NullPointerException();
         }

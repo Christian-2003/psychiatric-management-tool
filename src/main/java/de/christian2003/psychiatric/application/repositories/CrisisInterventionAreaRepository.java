@@ -11,7 +11,7 @@ public interface CrisisInterventionAreaRepository {
 
     List<CrisisInterventionArea> getAllCrisisInterventionAreas();
 
-    void addCrisisInterventionArea(CrisisInterventionArea crisisInterventionArea) throws NullPointerException;
+    void insertCrisisInterventionArea(CrisisInterventionArea crisisInterventionArea) throws NullPointerException;
 
     void deleteCrisisInterventionArea(CrisisInterventionArea crisisInterventionArea) throws NullPointerException;
 

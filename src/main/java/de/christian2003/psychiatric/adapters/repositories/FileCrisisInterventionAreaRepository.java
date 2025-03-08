@@ -40,7 +40,7 @@ public class FileCrisisInterventionAreaRepository implements CrisisInterventionA
     }
 
     @Override
-    public void addCrisisInterventionArea(CrisisInterventionArea crisisInterventionArea) throws NullPointerException {
+    public void insertCrisisInterventionArea(CrisisInterventionArea crisisInterventionArea) throws NullPointerException {
         if (crisisInterventionArea == null) {
             throw new NullPointerException();
         }

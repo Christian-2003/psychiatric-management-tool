@@ -43,7 +43,7 @@ public class FilePatientRepository implements PatientRepository, SavableReposito
     }
 
     @Override
-    public void addPatient(Patient patient) throws NullPointerException {
+    public void insertPatient(Patient patient) throws NullPointerException {
         if (patient == null) {
             throw new NullPointerException();
         }
