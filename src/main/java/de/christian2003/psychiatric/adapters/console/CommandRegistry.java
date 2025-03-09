@@ -1,7 +1,6 @@
 package de.christian2003.psychiatric.adapters.console;
 
-import de.christian2003.psychiatric.application.console.Command;
-import de.christian2003.psychiatric.application.console.CreatePatientCommand;
+import de.christian2003.psychiatric.application.console.*;
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
 import de.christian2003.psychiatric.application.services.NurseService;
 import de.christian2003.psychiatric.application.services.OfficeService;
@@ -23,6 +22,9 @@ public class CommandRegistry {
         commands = new HashMap<>();
 
         commands.put("create_patient", new CreatePatientCommand(patientService));
+        commands.put("list_patients", new ListPatientsCommand(patientService));
+        commands.put("delete_patient", new DeletePatientCommand(patientService));
+        commands.put("edit_patient", new EditPatientCommand(patientService));
     }
 
 

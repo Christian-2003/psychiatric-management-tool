@@ -8,7 +8,7 @@ public class Patient {
 
     private UUID assignedNurse;
 
-    private final PersonalData personalData;
+    private PersonalData personalData;
 
 
     public Patient(UUID patientId, PersonalData personalData) {
@@ -26,6 +26,13 @@ public class Patient {
 
     public PersonalData getPersonalData() {
         return personalData;
+    }
+
+    public void updatePersonalData(PersonalData personalData) throws NullPointerException {
+        if (personalData == null) {
+            throw new NullPointerException();
+        }
+        this.personalData = personalData;
     }
 
     public UUID getAssignedNurse() {
@@ -53,4 +60,20 @@ public class Patient {
         return false;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(patientId);
+        builder.append(": ");
+        builder.append(personalData);
+        builder.append(" (Assigned Nurse: ");
+        if (assignedNurse == null) {
+            builder.append("None");
+        }
+        else {
+            builder.append(assignedNurse);
+        }
+        builder.append(")");
+        return builder.toString();
+    }
 }

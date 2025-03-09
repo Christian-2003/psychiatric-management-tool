@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class CreatePatientCommand implements Command {
+public class EditPatientCommand implements Command {
 
     private final PatientService patientService;
 
 
-    public CreatePatientCommand(PatientService patientService) throws NullPointerException {
+    public EditPatientCommand(PatientService patientService) throws NullPointerException {
         if (patientService == null) {
             throw new NullPointerException();
         }
@@ -24,22 +24,29 @@ public class CreatePatientCommand implements Command {
 
     @Override
     public void execute(Map<String, String> args) {
+        UUID id = null;
+        if (args.containsKey("id")) {
+            try {
+                id = UUID.fromString(args.get("id"));
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println("Invalid ID \"" + args.get("id") + "\".");
+                return;
+            }
+        }
+        else {
+            System.out.println("Missing argument 'id'.");
+            return;
+        }
+
         String firstname = null;
         if (args.containsKey("firstname")) {
             firstname = args.get("firstname");
-        }
-        else {
-            System.out.println("Missing argument 'firstname'.");
-            return;
         }
 
         String lastname = null;
         if (args.containsKey("lastname")) {
             lastname = args.get("lastname");
-        }
-        else {
-            System.out.println("Missing argument 'lastname'.");
-            return;
         }
 
         LocalDate birthday = null;
@@ -53,15 +60,27 @@ public class CreatePatientCommand implements Command {
                 return;
             }
         }
-        else {
-            System.out.println("Missing argument 'birthday'.");
+
+        Patient patient = patientService.getPatientById(id);
+        if (patient == null) {
+            System.out.println("Cannot edit patient, since no patient with ID \"" + args.get("id") + "\" exists.");
             return;
         }
 
+        if (firstname == null) {
+            firstname = patient.getPersonalData().getFirstname();
+        }
+        if (lastname == null) {
+            lastname = patient.getPersonalData().getLastname();
+        }
+        if (birthday == null) {
+            birthday = patient.getPersonalData().getBirthday();
+        }
+
         PersonalData personalData = new PersonalData(firstname, lastname, birthday);
-        Patient patient = new Patient(UUID.randomUUID(), personalData);
-        patientService.createPatient(patient);
-        System.out.println("Created patient " + patient + ".");
+        patient.updatePersonalData(personalData);
+
+        System.out.println("Updated patient " + patient + ".");
     }
 
 }

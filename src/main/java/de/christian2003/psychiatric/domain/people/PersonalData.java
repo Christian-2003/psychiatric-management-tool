@@ -1,6 +1,8 @@
 package de.christian2003.psychiatric.domain.people;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Objects;
 
 
@@ -50,6 +52,21 @@ public final class PersonalData {
                     && personalData.getBirthday().equals(birthday);
         }
         return false;
+    }
+
+
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(firstname);
+        builder.append(" ");
+        builder.append(lastname);
+        builder.append(", born on ");
+        builder.append(formatter.format(birthday));
+
+        return builder.toString();
     }
 
 }
