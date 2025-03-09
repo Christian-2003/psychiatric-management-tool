@@ -2,7 +2,7 @@ package de.christian2003.psychiatric.adapters.repositories;
 
 import de.christian2003.psychiatric.application.repositories.CrisisInterventionAreaRepository;
 import de.christian2003.psychiatric.application.repositories.SavableRepository;
-import de.christian2003.psychiatric.plugins.FileSerializer;
+import de.christian2003.psychiatric.plugins.gson.FileSerializer;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
 import java.io.IOException;
 import java.util.*;

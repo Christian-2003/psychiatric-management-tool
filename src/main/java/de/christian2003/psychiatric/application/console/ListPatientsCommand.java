@@ -31,6 +31,9 @@ public class ListPatientsCommand implements Command {
         for (Patient patient: patients) {
             System.out.println(patient);
         }
+        if (patients.isEmpty()) {
+            System.out.println("No patients available.");
+        }
     }
 
 }

@@ -44,4 +44,8 @@ public final class RoomData {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return roomId + ": " + displayName;
+    }
 }

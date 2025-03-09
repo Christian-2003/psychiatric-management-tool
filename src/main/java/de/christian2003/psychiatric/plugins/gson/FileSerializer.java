@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.plugins;
+package de.christian2003.psychiatric.plugins.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
