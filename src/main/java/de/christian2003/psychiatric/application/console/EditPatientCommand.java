@@ -1,6 +1,7 @@
 package de.christian2003.psychiatric.application.console;
 
 import de.christian2003.psychiatric.application.services.PatientService;
+import de.christian2003.psychiatric.application.services.ServiceException;
 import de.christian2003.psychiatric.domain.people.Patient;
 import de.christian2003.psychiatric.domain.people.PersonalData;
 import java.time.LocalDate;
@@ -61,24 +62,14 @@ public class EditPatientCommand implements Command {
             }
         }
 
-        Patient patient = patientService.getPatientById(id);
-        if (patient == null) {
-            System.out.println("Cannot edit patient, since no patient with ID \"" + args.get("id") + "\" exists.");
+        Patient patient;
+        try {
+            patient = patientService.editPatient(id, firstname, lastname, birthday);
+        }
+        catch (ServiceException e) {
+            System.out.println(e.getMessage());
             return;
         }
-
-        if (firstname == null) {
-            firstname = patient.getPersonalData().getFirstname();
-        }
-        if (lastname == null) {
-            lastname = patient.getPersonalData().getLastname();
-        }
-        if (birthday == null) {
-            birthday = patient.getPersonalData().getBirthday();
-        }
-
-        PersonalData personalData = new PersonalData(firstname, lastname, birthday);
-        patient.updatePersonalData(personalData);
 
         System.out.println("Updated patient " + patient + ".");
     }

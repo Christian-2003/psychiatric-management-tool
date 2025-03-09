@@ -22,7 +22,7 @@ public class Main {
         OfficeRepository officeRepository = new FileOfficeRepository();
         CrisisInterventionAreaRepository crisisInterventionAreaRepository = new FileCrisisInterventionAreaRepository();
 
-        PatientService patientService = new PatientService(patientRepository);
+        PatientService patientService = new PatientService(patientRepository, crisisInterventionAreaRepository);
         NurseService nurseService = new NurseService(nurseRepository);
         OfficeService officeService = new OfficeService(officeRepository);
         CrisisInterventionAreaService crisisInterventionAreaService = new CrisisInterventionAreaService(crisisInterventionAreaRepository);

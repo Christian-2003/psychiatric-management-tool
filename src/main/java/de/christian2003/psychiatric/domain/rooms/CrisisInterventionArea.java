@@ -34,8 +34,15 @@ public class CrisisInterventionArea {
         return  assignedPatient;
     }
 
-    public void assignPatient(UUID patient) {
+    public void assignPatient(UUID patient) throws NullPointerException {
+        if (patient == null) {
+            throw new NullPointerException();
+        }
         this.assignedPatient = patient;
+    }
+
+    public void removeAssignedPatient() {
+        this.assignedPatient = null;
     }
 
     public boolean hasAssignedPatient() {
