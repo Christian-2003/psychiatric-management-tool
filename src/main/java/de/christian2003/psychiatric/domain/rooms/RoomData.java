@@ -1,7 +1,5 @@
 package de.christian2003.psychiatric.domain.rooms;
 
-import java.util.UUID;
-
 
 public final class RoomData {
 

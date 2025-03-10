@@ -2,7 +2,6 @@ package de.christian2003.psychiatric.adapters.console;
 
 import de.christian2003.psychiatric.application.console.*;
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
-import de.christian2003.psychiatric.application.services.NurseService;
 import de.christian2003.psychiatric.application.services.PatientService;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +12,8 @@ public class CommandRegistry {
     private final Map<String, Command> commands;
 
 
-    public CommandRegistry(PatientService patientService, NurseService nurseService, CrisisInterventionAreaService crisisInterventionAreaService) throws NullPointerException {
-        if (patientService == null || nurseService == null || crisisInterventionAreaService == null) {
+    public CommandRegistry(PatientService patientService, CrisisInterventionAreaService crisisInterventionAreaService) throws NullPointerException {
+        if (patientService == null || crisisInterventionAreaService == null) {
             throw new NullPointerException();
         }
 

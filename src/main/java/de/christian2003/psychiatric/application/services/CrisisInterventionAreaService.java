@@ -1,13 +1,11 @@
 package de.christian2003.psychiatric.application.services;
 
 import de.christian2003.psychiatric.application.repositories.CrisisInterventionAreaRepository;
-import de.christian2003.psychiatric.application.repositories.NurseRepository;
-import de.christian2003.psychiatric.domain.people.Patient;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
 import de.christian2003.psychiatric.domain.rooms.RoomData;
-
 import java.util.List;
 import java.util.UUID;
+
 
 public class CrisisInterventionAreaService {
 
