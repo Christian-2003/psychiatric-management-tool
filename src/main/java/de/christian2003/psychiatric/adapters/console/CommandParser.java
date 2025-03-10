@@ -24,12 +24,17 @@ public class CommandParser {
         }
 
         String[] parts = input.split(" ");
+        String commandName;
+        int argsBegin;
         if (parts.length < 2) {
-            ConsoleWriter.println("Invalid command \"" + input + "\".", Colors.RED);
-            return;
+            commandName = parts[0];
+            argsBegin = 1;
+        }
+        else {
+            commandName = parts[0] + "_" + parts[1];
+            argsBegin = 2;
         }
 
-        String commandName = parts[0] + "_" + parts[1];
         Command command = commandRegistry.getCommand(commandName);
         if (command == null) {
             ConsoleWriter.println("Unknown command \"" + input + "\".", Colors.RED);
@@ -37,7 +42,7 @@ public class CommandParser {
         }
 
         Map<String, String> args = new HashMap<>();
-        for (int i = 2; i < parts.length; i++) {
+        for (int i = argsBegin; i < parts.length; i++) {
             String[] arg = parts[i].split("=");
             if (arg.length == 2) {
                 args.put(arg[0], arg[1]);

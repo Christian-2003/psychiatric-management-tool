@@ -29,6 +29,8 @@ public class CommandRegistry {
         commands.put("list_cias", new ListCiasCommand(crisisInterventionAreaService));
         commands.put("delete_cia", new DeleteCiaCommand(crisisInterventionAreaService));
         commands.put("edit_cia", new EditCiaCommand(crisisInterventionAreaService));
+
+        commands.put("help", new HelpCommand(commands));
     }
 
 

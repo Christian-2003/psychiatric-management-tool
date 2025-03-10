@@ -2,6 +2,8 @@ package de.christian2003.psychiatric.application.console;
 
 import de.christian2003.psychiatric.adapters.console.Colors;
 import de.christian2003.psychiatric.adapters.console.ConsoleWriter;
+import de.christian2003.psychiatric.application.console.metadata.CommandInfo;
+import de.christian2003.psychiatric.application.console.metadata.ParameterInfo;
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
 
@@ -58,6 +60,17 @@ public class ListCiasCommand implements Command {
                 ConsoleWriter.println("None", Colors.WHITE);
             }
         }
+    }
+
+
+    @Override
+    public CommandInfo getInfo() {
+        return new CommandInfo(
+                "list cias",
+                "Lists all available crisis intervention areas.",
+                "list cias",
+                Map.of()
+        );
     }
 
 }

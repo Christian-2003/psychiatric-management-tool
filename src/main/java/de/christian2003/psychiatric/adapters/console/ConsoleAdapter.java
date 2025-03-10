@@ -35,4 +35,9 @@ public class ConsoleAdapter {
         scanner.close();
     }
 
+
+    private void printHelp() {
+
+    }
+
 }

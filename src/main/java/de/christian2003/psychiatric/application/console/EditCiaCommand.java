@@ -2,6 +2,8 @@ package de.christian2003.psychiatric.application.console;
 
 import de.christian2003.psychiatric.adapters.console.Colors;
 import de.christian2003.psychiatric.adapters.console.ConsoleWriter;
+import de.christian2003.psychiatric.application.console.metadata.CommandInfo;
+import de.christian2003.psychiatric.application.console.metadata.ParameterInfo;
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
 import de.christian2003.psychiatric.application.services.ServiceException;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
@@ -54,6 +56,20 @@ public class EditCiaCommand implements Command {
         }
 
         ConsoleWriter.println("Updated crisis intervention area", Colors.DEFAULT);
+    }
+
+
+    @Override
+    public CommandInfo getInfo() {
+        return new CommandInfo(
+                "edit cia",
+                "Edits a crisis intervention area.",
+                "edit cia id=abe372e7-a249-4795-a2a6-ffe94a7993ce name=US-Congress",
+                Map.of(
+                        "id", new ParameterInfo(true, "ID of the crisis intervention area to edit"),
+                        "name", new ParameterInfo(false, "New name for the crisis intervention area")
+                )
+        );
     }
 
 }

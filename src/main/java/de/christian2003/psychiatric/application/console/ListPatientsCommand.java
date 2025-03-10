@@ -2,6 +2,7 @@ package de.christian2003.psychiatric.application.console;
 
 import de.christian2003.psychiatric.adapters.console.Colors;
 import de.christian2003.psychiatric.adapters.console.ConsoleWriter;
+import de.christian2003.psychiatric.application.console.metadata.CommandInfo;
 import de.christian2003.psychiatric.application.services.PatientService;
 import de.christian2003.psychiatric.domain.people.Patient;
 import de.christian2003.psychiatric.domain.people.PersonalData;
@@ -59,6 +60,17 @@ public class ListPatientsCommand implements Command {
             ConsoleWriter.print(" ", Colors.DEFAULT);
             ConsoleWriter.println(formatter.format(patient.getPersonalData().getBirthday()), Colors.DEFAULT);
         }
+    }
+
+
+    @Override
+    public CommandInfo getInfo() {
+        return new CommandInfo(
+                "list patients",
+                "Lists all available patients.",
+                "list patients",
+                Map.of()
+        );
     }
 
 }
