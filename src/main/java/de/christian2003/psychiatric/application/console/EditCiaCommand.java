@@ -1,6 +1,7 @@
 package de.christian2003.psychiatric.application.console;
 
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
+import de.christian2003.psychiatric.application.services.ServiceException;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
 import de.christian2003.psychiatric.domain.rooms.RoomData;
 
@@ -42,18 +43,14 @@ public class EditCiaCommand implements Command {
             name = args.get("name");
         }
 
-        CrisisInterventionArea crisisInterventionArea = crisisInterventionAreaService.getCrisisInterventionAreaById(id);
-        if (crisisInterventionArea == null) {
-            System.out.println("Cannot edit crisis intervention area, since no crisis intervention area with ID \"" + args.get("id") + "\" exists.");
+        CrisisInterventionArea crisisInterventionArea;
+        try {
+            crisisInterventionArea = crisisInterventionAreaService.editCrisisInterventionArea(id, name);
+        }
+        catch (ServiceException e) {
+            System.out.println(e.getMessage());
             return;
         }
-
-        if (name == null) {
-            name = crisisInterventionArea.getRoomData().getDisplayName();
-        }
-
-        RoomData roomData = new RoomData(crisisInterventionArea.getRoomData().getRoomId(), name);
-        crisisInterventionArea.updateRoomData(roomData);
 
         System.out.println("Updated crisis intervention area " + crisisInterventionArea + ".");
     }

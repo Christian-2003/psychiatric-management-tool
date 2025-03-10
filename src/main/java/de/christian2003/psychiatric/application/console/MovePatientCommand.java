@@ -1,6 +1,8 @@
 package de.christian2003.psychiatric.application.console;
 
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
+import de.christian2003.psychiatric.application.services.PatientService;
+import de.christian2003.psychiatric.application.services.ServiceException;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
 
 import java.util.Map;
@@ -8,14 +10,14 @@ import java.util.UUID;
 
 public class MovePatientCommand implements Command {
 
-    private final CrisisInterventionAreaService crisisInterventionAreaService;
+    private final PatientService patientService;
 
 
-    public MovePatientCommand(CrisisInterventionAreaService crisisInterventionAreaService) throws NullPointerException {
-        if (crisisInterventionAreaService == null) {
+    public MovePatientCommand(PatientService patientService) throws NullPointerException {
+        if (patientService == null) {
             throw new NullPointerException();
         }
-        this.crisisInterventionAreaService = crisisInterventionAreaService;
+        this.patientService = patientService;
     }
 
 
@@ -51,14 +53,15 @@ public class MovePatientCommand implements Command {
             return;
         }
 
-        CrisisInterventionArea crisisInterventionArea = crisisInterventionAreaService.getCrisisInterventionAreaById(cia);
-        if (crisisInterventionArea == null) {
-            System.out.println("Cannot move patient to crisis intervention area, since no crisis intervention area with ID \"" + args.get("cia") + "\" exists.");
+        try {
+            patientService.movePatientToCrisisInterventionArea(patient, cia);
+        }
+        catch (ServiceException e) {
+            System.out.println(e.getMessage());
             return;
         }
 
-        crisisInterventionArea.assignPatient(patient);
-        System.out.println("Moved patient " + patient + " to crisis intervention area " + crisisInterventionArea);
+        System.out.println("Moved patient \"" + patient + "\" to crisis intervention area \"" + cia + "\".");
     }
 
 }

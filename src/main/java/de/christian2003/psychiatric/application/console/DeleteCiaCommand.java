@@ -1,6 +1,7 @@
 package de.christian2003.psychiatric.application.console;
 
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
+import de.christian2003.psychiatric.application.services.ServiceException;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
 
 import java.util.Map;
@@ -36,14 +37,16 @@ public class DeleteCiaCommand implements Command {
             return;
         }
 
-        CrisisInterventionArea crisisInterventionArea = crisisInterventionAreaService.getCrisisInterventionAreaById(id);
-        if (crisisInterventionArea != null) {
-            crisisInterventionAreaService.deleteCrisisInterventionArea(crisisInterventionArea);
-            System.out.println("Deleted crisis intervention area " + crisisInterventionArea + ".");
+        CrisisInterventionArea crisisInterventionArea;
+        try {
+            crisisInterventionArea = crisisInterventionAreaService.deleteCrisisInterventionArea(id);
         }
-        else {
-            System.out.println("Cannot delete crisis intervention area, since no crisis intervention area with ID \"" + args.get("id") + "\" exists.");
+        catch (ServiceException e) {
+            System.out.println(e.getMessage());
+            return;
         }
+
+        System.out.println("Deleted crisis intervention area " + crisisInterventionArea + ".");
     }
 
 }

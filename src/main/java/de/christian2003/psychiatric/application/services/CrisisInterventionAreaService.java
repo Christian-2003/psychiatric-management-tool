@@ -4,6 +4,7 @@ import de.christian2003.psychiatric.application.repositories.CrisisInterventionA
 import de.christian2003.psychiatric.application.repositories.NurseRepository;
 import de.christian2003.psychiatric.domain.people.Patient;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
+import de.christian2003.psychiatric.domain.rooms.RoomData;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,18 +32,56 @@ public class CrisisInterventionAreaService {
     }
 
 
-    public void createCrisisInterventionArea(CrisisInterventionArea crisisInterventionArea) throws NullPointerException {
+    public CrisisInterventionArea createCrisisInterventionArea(String displayName) throws NullPointerException {
+        if (displayName == null) {
+            throw new NullPointerException();
+        }
+        RoomData roomData = new RoomData(UUID.randomUUID(), displayName);
+        CrisisInterventionArea crisisInterventionArea = new CrisisInterventionArea(roomData, null);
         crisisInterventionAreaRepository.insertCrisisInterventionArea(crisisInterventionArea);
+        return crisisInterventionArea;
     }
 
 
-    public void editCrisisInterventionArea(CrisisInterventionArea crisisInterventionArea) throws NullPointerException {
+    public CrisisInterventionArea editCrisisInterventionArea(UUID id, String displayName) throws NullPointerException, ServiceException {
+        if (id == null) {
+            throw new NullPointerException();
+        }
+
+        CrisisInterventionArea crisisInterventionArea = crisisInterventionAreaRepository.getCrisisInterventionAreaById(id);
+        if (crisisInterventionArea == null) {
+            throw new ServiceException("Cannot edit crisis intervention area, since no crisis intervention area with ID \"" + id + "\" exists.");
+        }
+
+        if (displayName == null) {
+            displayName = crisisInterventionArea.getRoomData().getDisplayName();
+        }
+
+        RoomData roomData = new RoomData(crisisInterventionArea.getRoomData().getRoomId(), displayName);
+        crisisInterventionArea.updateRoomData(roomData);
+
         crisisInterventionAreaRepository.insertCrisisInterventionArea(crisisInterventionArea);
+
+        return crisisInterventionArea;
     }
 
 
-    public void deleteCrisisInterventionArea(CrisisInterventionArea crisisInterventionArea) throws NullPointerException {
+    public CrisisInterventionArea deleteCrisisInterventionArea(UUID id) throws NullPointerException, ServiceException {
+        if (id == null) {
+            throw new NullPointerException();
+        }
+
+        CrisisInterventionArea crisisInterventionArea = crisisInterventionAreaRepository.getCrisisInterventionAreaById(id);
+        if (crisisInterventionArea == null) {
+            throw new ServiceException("Cannot delete crisis intervention area, since no crisis intervention area with ID \"" + id + "\" exists.");
+        }
+        if (crisisInterventionArea.hasAssignedPatient()) {
+            throw new ServiceException("Cannot delete crisis intervention area \"" + id + "\", since it has assigned patient.");
+        }
+
         crisisInterventionAreaRepository.deleteCrisisInterventionArea(crisisInterventionArea);
+
+        return crisisInterventionArea;
     }
 
 }

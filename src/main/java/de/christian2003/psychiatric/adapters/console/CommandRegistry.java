@@ -3,7 +3,6 @@ package de.christian2003.psychiatric.adapters.console;
 import de.christian2003.psychiatric.application.console.*;
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
 import de.christian2003.psychiatric.application.services.NurseService;
-import de.christian2003.psychiatric.application.services.OfficeService;
 import de.christian2003.psychiatric.application.services.PatientService;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +13,8 @@ public class CommandRegistry {
     private final Map<String, Command> commands;
 
 
-    public CommandRegistry(PatientService patientService, NurseService nurseService, OfficeService officeService, CrisisInterventionAreaService crisisInterventionAreaService) throws NullPointerException {
-        if (patientService == null || nurseService == null || officeService == null || crisisInterventionAreaService == null) {
+    public CommandRegistry(PatientService patientService, NurseService nurseService, CrisisInterventionAreaService crisisInterventionAreaService) throws NullPointerException {
+        if (patientService == null || nurseService == null || crisisInterventionAreaService == null) {
             throw new NullPointerException();
         }
 
@@ -25,11 +24,12 @@ public class CommandRegistry {
         commands.put("list_patients", new ListPatientsCommand(patientService));
         commands.put("delete_patient", new DeletePatientCommand(patientService));
         commands.put("edit_patient", new EditPatientCommand(patientService));
+        commands.put("move_patient", new MovePatientCommand(patientService));
+
         commands.put("create_cia", new CreateCiaCommand(crisisInterventionAreaService));
         commands.put("list_cias", new ListCiasCommand(crisisInterventionAreaService));
         commands.put("delete_cia", new DeleteCiaCommand(crisisInterventionAreaService));
         commands.put("edit_cia", new EditCiaCommand(crisisInterventionAreaService));
-        commands.put("move_patient", new MovePatientCommand(crisisInterventionAreaService));
     }
 
 

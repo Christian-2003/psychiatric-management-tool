@@ -1,6 +1,7 @@
 package de.christian2003.psychiatric.application.console;
 
 import de.christian2003.psychiatric.application.services.PatientService;
+import de.christian2003.psychiatric.application.services.ServiceException;
 import de.christian2003.psychiatric.domain.people.Patient;
 
 import java.util.Map;
@@ -36,14 +37,15 @@ public class DeletePatientCommand implements Command {
             return;
         }
 
-        Patient patient = patientService.getPatientById(id);
-        if (patient != null) {
-            patientService.deletePatient(patient);
-            System.out.println("Deleted patient " + patient + ".");
+        Patient patient;
+        try {
+            patient = patientService.deletePatient(id);
         }
-        else {
-            System.out.println("Cannot delete patient, since no patient with ID \"" + args.get("id") + "\" exists.");
+        catch (ServiceException e){
+            System.out.println(e.getMessage());
+            return;
         }
+        System.out.println("Deleted patient " + patient + ".");
     }
 
 }

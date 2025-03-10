@@ -31,9 +31,7 @@ public class CreateCiaCommand implements Command {
             return;
         }
 
-        RoomData roomData = new RoomData(UUID.randomUUID(), name);
-        CrisisInterventionArea crisisInterventionArea = new CrisisInterventionArea(roomData, null);
-        crisisInterventionAreaService.createCrisisInterventionArea(crisisInterventionArea);
+        CrisisInterventionArea crisisInterventionArea = crisisInterventionAreaService.createCrisisInterventionArea(name);
         System.out.println("Created crisis intervention area " + crisisInterventionArea + ".");
     }
 

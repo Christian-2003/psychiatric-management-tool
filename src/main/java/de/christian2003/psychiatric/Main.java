@@ -3,12 +3,10 @@ package de.christian2003.psychiatric;
 import de.christian2003.psychiatric.adapters.console.ConsoleAdapter;
 import de.christian2003.psychiatric.adapters.repositories.FileCrisisInterventionAreaRepository;
 import de.christian2003.psychiatric.adapters.repositories.FileNurseRepository;
-import de.christian2003.psychiatric.adapters.repositories.FileOfficeRepository;
 import de.christian2003.psychiatric.adapters.repositories.FilePatientRepository;
 import de.christian2003.psychiatric.application.repositories.*;
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
 import de.christian2003.psychiatric.application.services.NurseService;
-import de.christian2003.psychiatric.application.services.OfficeService;
 import de.christian2003.psychiatric.application.services.PatientService;
 import java.io.IOException;
 
@@ -19,12 +17,10 @@ public class Main {
         //Create repositories and services:
         PatientRepository patientRepository = new FilePatientRepository();
         NurseRepository nurseRepository = new FileNurseRepository();
-        OfficeRepository officeRepository = new FileOfficeRepository();
         CrisisInterventionAreaRepository crisisInterventionAreaRepository = new FileCrisisInterventionAreaRepository();
 
         PatientService patientService = new PatientService(patientRepository, crisisInterventionAreaRepository);
         NurseService nurseService = new NurseService(nurseRepository);
-        OfficeService officeService = new OfficeService(officeRepository);
         CrisisInterventionAreaService crisisInterventionAreaService = new CrisisInterventionAreaService(crisisInterventionAreaRepository);
 
 
@@ -34,9 +30,6 @@ public class Main {
                 savableRepository.loadData();
             }
             if (nurseRepository instanceof SavableRepository savableRepository) {
-                savableRepository.loadData();
-            }
-            if (officeRepository instanceof SavableRepository savableRepository) {
                 savableRepository.loadData();
             }
             if (crisisInterventionAreaRepository instanceof SavableRepository savableRepository) {
@@ -50,7 +43,7 @@ public class Main {
 
 
         //Create console:
-        ConsoleAdapter consoleAdapter = new ConsoleAdapter(patientService, nurseService, officeService, crisisInterventionAreaService);
+        ConsoleAdapter consoleAdapter = new ConsoleAdapter(patientService, nurseService, crisisInterventionAreaService);
         consoleAdapter.start();
 
 
@@ -60,9 +53,6 @@ public class Main {
                 savableRepository.saveData();
             }
             if (nurseRepository instanceof SavableRepository savableRepository) {
-                savableRepository.saveData();
-            }
-            if (officeRepository instanceof SavableRepository savableRepository) {
                 savableRepository.saveData();
             }
             if (crisisInterventionAreaRepository instanceof SavableRepository savableRepository) {
