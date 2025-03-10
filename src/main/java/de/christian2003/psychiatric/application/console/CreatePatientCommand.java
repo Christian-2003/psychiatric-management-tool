@@ -1,5 +1,7 @@
 package de.christian2003.psychiatric.application.console;
 
+import de.christian2003.psychiatric.adapters.console.Colors;
+import de.christian2003.psychiatric.adapters.console.ConsoleWriter;
 import de.christian2003.psychiatric.application.services.PatientService;
 import de.christian2003.psychiatric.application.services.ServiceException;
 import de.christian2003.psychiatric.domain.people.Patient;
@@ -30,7 +32,7 @@ public class CreatePatientCommand implements Command {
             firstname = args.get("firstname");
         }
         else {
-            System.out.println("Missing argument 'firstname'.");
+            ConsoleWriter.println("Missing argument 'firstname'.", Colors.RED);
             return;
         }
 
@@ -39,7 +41,7 @@ public class CreatePatientCommand implements Command {
             lastname = args.get("lastname");
         }
         else {
-            System.out.println("Missing argument 'lastname'.");
+            ConsoleWriter.println("Missing argument 'lastname'.", Colors.RED);
             return;
         }
 
@@ -50,12 +52,12 @@ public class CreatePatientCommand implements Command {
                 birthday = LocalDate.parse(args.get("birthday"), formatter);
             }
             catch (Exception e) {
-                System.out.println("Unsupported date format \"" + args.get("birthday") + "\".");
+                ConsoleWriter.println("Unsupported date format \"" + args.get("birthday") + "\".", Colors.RED);
                 return;
             }
         }
         else {
-            System.out.println("Missing argument 'birthday'.");
+            ConsoleWriter.println("Missing argument 'birthday'.", Colors.RED);
             return;
         }
 
@@ -65,12 +67,12 @@ public class CreatePatientCommand implements Command {
                 cia = UUID.fromString(args.get("cia"));
             }
             catch (Exception e) {
-                System.out.println("Invalid ID \"" + args.get("cia") + "\".");
+                ConsoleWriter.println("Invalid ID \"" + args.get("cia") + "\".", Colors.RED);
                 return;
             }
         }
         else {
-            System.out.println("Missing argument 'cia'.");
+            ConsoleWriter.println("Missing argument 'cia'.", Colors.RED);
             return;
         }
 
@@ -79,11 +81,11 @@ public class CreatePatientCommand implements Command {
             patient = patientService.createPatient(firstname, lastname, birthday, cia);
         }
         catch (ServiceException e) {
-            System.out.println(e.getMessage());
+            ConsoleWriter.println(e.getMessage(), Colors.RED);
             return;
         }
 
-        System.out.println("Created patient " + patient + ".");
+        ConsoleWriter.println("Created patient .", Colors.DEFAULT);
     }
 
 }

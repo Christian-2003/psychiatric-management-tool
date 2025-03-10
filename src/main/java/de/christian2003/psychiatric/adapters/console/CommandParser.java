@@ -25,14 +25,14 @@ public class CommandParser {
 
         String[] parts = input.split(" ");
         if (parts.length < 2) {
-            System.out.println("Invalid command \"" + input + "\".");
+            ConsoleWriter.println("Invalid command \"" + input + "\".", Colors.RED);
             return;
         }
 
         String commandName = parts[0] + "_" + parts[1];
         Command command = commandRegistry.getCommand(commandName);
         if (command == null) {
-            System.out.println("Unknown command \"" + input + "\".");
+            ConsoleWriter.println("Unknown command \"" + input + "\".", Colors.RED);
             return;
         }
 
@@ -43,7 +43,7 @@ public class CommandParser {
                 args.put(arg[0], arg[1]);
             }
             else {
-                System.out.println("Invalid argument \"" + parts[i] + "\". Arguments must always be of format 'key=value'.");
+                ConsoleWriter.println("Invalid argument \"" + parts[i] + "\". Arguments must always be of format 'key=value'.", Colors.RED);
                 return;
             }
         }

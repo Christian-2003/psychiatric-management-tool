@@ -1,5 +1,7 @@
 package de.christian2003.psychiatric.application.console;
 
+import de.christian2003.psychiatric.adapters.console.Colors;
+import de.christian2003.psychiatric.adapters.console.ConsoleWriter;
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
 import de.christian2003.psychiatric.application.services.PatientService;
 import de.christian2003.psychiatric.application.services.ServiceException;
@@ -29,12 +31,12 @@ public class MovePatientCommand implements Command {
                 patient = UUID.fromString(args.get("patient"));
             }
             catch (IllegalArgumentException e) {
-                System.out.println("Invalid ID for patient \"" + args.get("patient") + "\".");
+                ConsoleWriter.println("Invalid ID for patient \"" + args.get("patient") + "\".", Colors.RED);
                 return;
             }
         }
         else {
-            System.out.println("Missing argument 'patient'.");
+            ConsoleWriter.println("Missing argument 'patient'.", Colors.RED);
             return;
         }
 
@@ -44,12 +46,12 @@ public class MovePatientCommand implements Command {
                 cia = UUID.fromString(args.get("cia"));
             }
             catch (IllegalArgumentException e) {
-                System.out.println("Invalid ID for crisis intervention area \"" + args.get("cia") + "\".");
+                ConsoleWriter.println("Invalid ID for crisis intervention area \"" + args.get("cia") + "\".", Colors.RED);
                 return;
             }
         }
         else {
-            System.out.println("Missing argument 'cia'.");
+            ConsoleWriter.println("Missing argument 'cia'.", Colors.RED);
             return;
         }
 
@@ -57,11 +59,11 @@ public class MovePatientCommand implements Command {
             patientService.movePatientToCrisisInterventionArea(patient, cia);
         }
         catch (ServiceException e) {
-            System.out.println(e.getMessage());
+            ConsoleWriter.println(e.getMessage(), Colors.RED);
             return;
         }
 
-        System.out.println("Moved patient \"" + patient + "\" to crisis intervention area \"" + cia + "\".");
+        ConsoleWriter.println("Moved patient to crisis intervention area.", Colors.DEFAULT);
     }
 
 }

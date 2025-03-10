@@ -18,7 +18,7 @@ public class CrisisInterventionArea {
         }
         this.roomId = roomId;
         this.roomData = roomData;
-        assignPatient(assignedPatient);
+        this.assignedPatient = assignedPatient;
     }
 
 
@@ -74,6 +74,8 @@ public class CrisisInterventionArea {
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
+        builder.append(roomId);
+        builder.append(": ");
         builder.append(roomData);
         builder.append(" (Assigned Patient: ");
         if (assignedPatient == null) {

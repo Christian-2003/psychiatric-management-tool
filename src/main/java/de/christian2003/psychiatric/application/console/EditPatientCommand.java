@@ -1,5 +1,7 @@
 package de.christian2003.psychiatric.application.console;
 
+import de.christian2003.psychiatric.adapters.console.Colors;
+import de.christian2003.psychiatric.adapters.console.ConsoleWriter;
 import de.christian2003.psychiatric.application.services.PatientService;
 import de.christian2003.psychiatric.application.services.ServiceException;
 import de.christian2003.psychiatric.domain.people.Patient;
@@ -31,12 +33,12 @@ public class EditPatientCommand implements Command {
                 id = UUID.fromString(args.get("id"));
             }
             catch (IllegalArgumentException e) {
-                System.out.println("Invalid ID \"" + args.get("id") + "\".");
+                ConsoleWriter.println("Invalid ID \"" + args.get("id") + "\".", Colors.RED);
                 return;
             }
         }
         else {
-            System.out.println("Missing argument 'id'.");
+            ConsoleWriter.println("Missing argument 'id'.", Colors.RED);
             return;
         }
 
@@ -57,21 +59,20 @@ public class EditPatientCommand implements Command {
                 birthday = LocalDate.parse(args.get("birthday"), formatter);
             }
             catch (Exception e) {
-                System.out.println("Unsupported date format \"" + args.get("birthday") + "\".");
+                ConsoleWriter.println("Unsupported date format \"" + args.get("birthday") + "\".", Colors.RED);
                 return;
             }
         }
 
-        Patient patient;
         try {
-            patient = patientService.editPatient(id, firstname, lastname, birthday);
+            patientService.editPatient(id, firstname, lastname, birthday);
         }
         catch (ServiceException e) {
             System.out.println(e.getMessage());
             return;
         }
 
-        System.out.println("Updated patient " + patient + ".");
+        ConsoleWriter.println("Updated patient.", Colors.DEFAULT);
     }
 
 }

@@ -22,7 +22,8 @@ public class ConsoleAdapter {
     public void start() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.print("> ");
+            ConsoleWriter.println("", Colors.DEFAULT);
+            ConsoleWriter.print("> ", Colors.DEFAULT);
             String input = scanner.nextLine();
 
             if (input.equalsIgnoreCase("exit") || input.equalsIgnoreCase("close")) {

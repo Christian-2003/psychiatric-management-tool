@@ -1,5 +1,7 @@
 package de.christian2003.psychiatric.application.console;
 
+import de.christian2003.psychiatric.adapters.console.Colors;
+import de.christian2003.psychiatric.adapters.console.ConsoleWriter;
 import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
 import de.christian2003.psychiatric.application.services.ServiceException;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
@@ -29,12 +31,12 @@ public class EditCiaCommand implements Command {
                 id = UUID.fromString(args.get("id"));
             }
             catch (IllegalArgumentException e) {
-                System.out.println("Invalid ID \"" + args.get("id") + "\".");
+                ConsoleWriter.println("Invalid ID \"" + args.get("id") + "\".", Colors.RED);
                 return;
             }
         }
         else {
-            System.out.println("Missing argument 'id'.");
+            ConsoleWriter.println("Missing argument 'id'.", Colors.RED);
             return;
         }
 
@@ -43,16 +45,15 @@ public class EditCiaCommand implements Command {
             name = args.get("name");
         }
 
-        CrisisInterventionArea crisisInterventionArea;
         try {
-            crisisInterventionArea = crisisInterventionAreaService.editCrisisInterventionArea(id, name);
+            crisisInterventionAreaService.editCrisisInterventionArea(id, name);
         }
         catch (ServiceException e) {
-            System.out.println(e.getMessage());
+            ConsoleWriter.println(e.getMessage(), Colors.RED);
             return;
         }
 
-        System.out.println("Updated crisis intervention area " + crisisInterventionArea + ".");
+        ConsoleWriter.println("Updated crisis intervention area", Colors.DEFAULT);
     }
 
 }

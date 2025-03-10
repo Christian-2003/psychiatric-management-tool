@@ -101,7 +101,7 @@ public class PatientService {
         //Remove patient from assigned crisis intervention area:
         List<CrisisInterventionArea> crisisInterventionAreas = crisisInterventionAreaRepository.getAllCrisisInterventionAreas();
         for (CrisisInterventionArea crisisInterventionArea: crisisInterventionAreas) {
-            if (crisisInterventionArea.getAssignedPatient().equals(patient.getPatientId())) {
+            if (crisisInterventionArea.hasAssignedPatient() && crisisInterventionArea.getAssignedPatient().equals(patient.getPatientId())) {
                 crisisInterventionArea.removeAssignedPatient();
             }
         }
