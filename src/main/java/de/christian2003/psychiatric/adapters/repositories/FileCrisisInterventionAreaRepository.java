@@ -27,7 +27,7 @@ public class FileCrisisInterventionAreaRepository implements CrisisInterventionA
             throw new NullPointerException();
         }
         for (CrisisInterventionArea crisisInterventionArea : crisisInterventionAreas) {
-            if (crisisInterventionArea.getRoomData().getRoomId().equals(id)) {
+            if (crisisInterventionArea.getRoomId().equals(id)) {
                 return crisisInterventionArea;
             }
         }

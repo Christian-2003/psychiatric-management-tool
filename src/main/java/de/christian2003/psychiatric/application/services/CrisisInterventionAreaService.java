@@ -36,8 +36,8 @@ public class CrisisInterventionAreaService {
         if (displayName == null) {
             throw new NullPointerException();
         }
-        RoomData roomData = new RoomData(UUID.randomUUID(), displayName);
-        CrisisInterventionArea crisisInterventionArea = new CrisisInterventionArea(roomData, null);
+        RoomData roomData = new RoomData(displayName);
+        CrisisInterventionArea crisisInterventionArea = new CrisisInterventionArea(UUID.randomUUID(), roomData, null);
         crisisInterventionAreaRepository.insertCrisisInterventionArea(crisisInterventionArea);
         return crisisInterventionArea;
     }
@@ -57,7 +57,7 @@ public class CrisisInterventionAreaService {
             displayName = crisisInterventionArea.getRoomData().getDisplayName();
         }
 
-        RoomData roomData = new RoomData(crisisInterventionArea.getRoomData().getRoomId(), displayName);
+        RoomData roomData = new RoomData(displayName);
         crisisInterventionArea.updateRoomData(roomData);
 
         crisisInterventionAreaRepository.insertCrisisInterventionArea(crisisInterventionArea);

@@ -5,19 +5,26 @@ import java.util.UUID;
 
 public class CrisisInterventionArea {
 
+    private final UUID roomId;
+
     private RoomData roomData;
 
     private UUID assignedPatient;
 
 
-    public CrisisInterventionArea(RoomData roomData, UUID assignedPatient) throws NullPointerException {
-        if (roomData == null) {
+    public CrisisInterventionArea(UUID roomId, RoomData roomData, UUID assignedPatient) throws NullPointerException {
+        if (roomId == null || roomData == null) {
             throw new NullPointerException();
         }
+        this.roomId = roomId;
         this.roomData = roomData;
         assignPatient(assignedPatient);
     }
 
+
+    public UUID getRoomId() {
+        return roomId;
+    }
 
     public RoomData getRoomData() {
         return roomData;
@@ -47,6 +54,20 @@ public class CrisisInterventionArea {
 
     public boolean hasAssignedPatient() {
         return assignedPatient != null;
+    }
+
+
+    @Override
+    public int hashCode() {
+        return roomId.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof CrisisInterventionArea crisisInterventionArea) {
+            return crisisInterventionArea.getRoomId().equals(roomId);
+        }
+        return false;
     }
 
     @Override
