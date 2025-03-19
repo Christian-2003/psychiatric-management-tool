@@ -1,13 +1,12 @@
 package de.christian2003.psychiatric.application.console;
 
-import de.christian2003.psychiatric.adapters.console.Colors;
-import de.christian2003.psychiatric.adapters.console.ConsoleWriter;
+import de.christian2003.psychiatric.plugins.console.Colors;
+import de.christian2003.psychiatric.plugins.console.ConsoleWriter;
 import de.christian2003.psychiatric.application.console.metadata.CommandInfo;
 import de.christian2003.psychiatric.application.console.metadata.ParameterInfo;
-import de.christian2003.psychiatric.application.services.PatientService;
-import de.christian2003.psychiatric.application.services.ServiceException;
-import de.christian2003.psychiatric.domain.people.Patient;
-import de.christian2003.psychiatric.domain.people.PersonalData;
+import de.christian2003.psychiatric.domain.services.PatientService;
+import de.christian2003.psychiatric.domain.services.ServiceException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;

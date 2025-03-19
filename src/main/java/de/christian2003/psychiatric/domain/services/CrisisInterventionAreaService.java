@@ -1,6 +1,6 @@
-package de.christian2003.psychiatric.application.services;
+package de.christian2003.psychiatric.domain.services;
 
-import de.christian2003.psychiatric.application.repositories.CrisisInterventionAreaRepository;
+import de.christian2003.psychiatric.domain.repositories.CrisisInterventionAreaRepository;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
 import de.christian2003.psychiatric.domain.rooms.RoomData;
 import java.util.List;
@@ -20,28 +20,22 @@ public class CrisisInterventionAreaService {
     }
 
 
-    public CrisisInterventionArea getCrisisInterventionAreaById(UUID id) throws NullPointerException {
-        return crisisInterventionAreaRepository.getCrisisInterventionAreaById(id);
-    }
-
-
     public List<CrisisInterventionArea> getAllCrisisInterventionAreas() {
         return crisisInterventionAreaRepository.getAllCrisisInterventionAreas();
     }
 
 
-    public CrisisInterventionArea createCrisisInterventionArea(String displayName) throws NullPointerException {
+    public void createCrisisInterventionArea(String displayName) throws NullPointerException {
         if (displayName == null) {
             throw new NullPointerException();
         }
         RoomData roomData = new RoomData(displayName);
         CrisisInterventionArea crisisInterventionArea = new CrisisInterventionArea(UUID.randomUUID(), roomData, null);
         crisisInterventionAreaRepository.insertCrisisInterventionArea(crisisInterventionArea);
-        return crisisInterventionArea;
     }
 
 
-    public CrisisInterventionArea editCrisisInterventionArea(UUID id, String displayName) throws NullPointerException, ServiceException {
+    public void editCrisisInterventionArea(UUID id, String displayName) throws NullPointerException, ServiceException {
         if (id == null) {
             throw new NullPointerException();
         }
@@ -59,12 +53,10 @@ public class CrisisInterventionAreaService {
         crisisInterventionArea.updateRoomData(roomData);
 
         crisisInterventionAreaRepository.insertCrisisInterventionArea(crisisInterventionArea);
-
-        return crisisInterventionArea;
     }
 
 
-    public CrisisInterventionArea deleteCrisisInterventionArea(UUID id) throws NullPointerException, ServiceException {
+    public void deleteCrisisInterventionArea(UUID id) throws NullPointerException, ServiceException {
         if (id == null) {
             throw new NullPointerException();
         }
@@ -78,8 +70,6 @@ public class CrisisInterventionAreaService {
         }
 
         crisisInterventionAreaRepository.deleteCrisisInterventionArea(crisisInterventionArea);
-
-        return crisisInterventionArea;
     }
 
 }

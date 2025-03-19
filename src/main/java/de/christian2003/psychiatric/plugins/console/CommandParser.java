@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.adapters.console;
+package de.christian2003.psychiatric.plugins.console;
 
 import de.christian2003.psychiatric.application.console.Command;
 import java.util.HashMap;

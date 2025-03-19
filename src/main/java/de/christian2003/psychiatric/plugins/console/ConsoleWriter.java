@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.adapters.console;
+package de.christian2003.psychiatric.plugins.console;
 
 public class ConsoleWriter {
 
@@ -21,7 +21,6 @@ public class ConsoleWriter {
         color.apply();
         System.out.println(text);
     }
-
 
 
     private static String format(String text, int length) {

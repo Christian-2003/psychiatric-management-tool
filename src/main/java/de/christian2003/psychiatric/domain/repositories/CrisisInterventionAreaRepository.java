@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.application.repositories;
+package de.christian2003.psychiatric.domain.repositories;
 
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
 import java.util.List;

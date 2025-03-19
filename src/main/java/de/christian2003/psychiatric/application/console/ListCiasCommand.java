@@ -1,14 +1,11 @@
 package de.christian2003.psychiatric.application.console;
 
-import de.christian2003.psychiatric.adapters.console.Colors;
-import de.christian2003.psychiatric.adapters.console.ConsoleWriter;
+import de.christian2003.psychiatric.plugins.console.Colors;
+import de.christian2003.psychiatric.plugins.console.ConsoleWriter;
 import de.christian2003.psychiatric.application.console.metadata.CommandInfo;
-import de.christian2003.psychiatric.application.console.metadata.ParameterInfo;
-import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
+import de.christian2003.psychiatric.domain.services.CrisisInterventionAreaService;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
 
-import java.awt.*;
-import java.io.Console;
 import java.util.List;
 import java.util.Map;
 

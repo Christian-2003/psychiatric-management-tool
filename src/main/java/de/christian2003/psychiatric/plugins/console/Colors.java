@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.adapters.console;
+package de.christian2003.psychiatric.plugins.console;
 
 public enum Colors {
 

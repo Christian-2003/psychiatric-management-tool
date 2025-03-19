@@ -1,7 +1,7 @@
 package de.christian2003.psychiatric.application.console;
 
-import de.christian2003.psychiatric.adapters.console.Colors;
-import de.christian2003.psychiatric.adapters.console.ConsoleWriter;
+import de.christian2003.psychiatric.plugins.console.Colors;
+import de.christian2003.psychiatric.plugins.console.ConsoleWriter;
 import de.christian2003.psychiatric.application.console.metadata.CommandInfo;
 import de.christian2003.psychiatric.application.console.metadata.ParameterInfo;
 

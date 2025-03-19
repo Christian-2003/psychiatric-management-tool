@@ -1,7 +1,7 @@
-package de.christian2003.psychiatric.application.services;
+package de.christian2003.psychiatric.domain.services;
 
-import de.christian2003.psychiatric.application.repositories.CrisisInterventionAreaRepository;
-import de.christian2003.psychiatric.application.repositories.PatientRepository;
+import de.christian2003.psychiatric.domain.repositories.CrisisInterventionAreaRepository;
+import de.christian2003.psychiatric.domain.repositories.PatientRepository;
 import de.christian2003.psychiatric.domain.people.Patient;
 import de.christian2003.psychiatric.domain.people.PersonalData;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
@@ -26,17 +26,12 @@ public class PatientService {
     }
 
 
-    public Patient getPatientById(UUID id) throws NullPointerException {
-        return patientRepository.getPatientById(id);
-    }
-
-
     public List<Patient> getAllPatients() {
         return patientRepository.getAllPatients();
     }
 
 
-    public Patient createPatient(String firstname, String lastname, LocalDate birthday, UUID crisisInterventionArea) throws NullPointerException, ServiceException {
+    public void createPatient(String firstname, String lastname, LocalDate birthday, UUID crisisInterventionArea) throws NullPointerException, ServiceException {
         if (firstname == null || lastname == null || birthday == null || crisisInterventionArea == null) {
             throw new NullPointerException();
         }
@@ -55,11 +50,10 @@ public class PatientService {
         cia.assignPatient(patient.getPatientId());
 
         patientRepository.insertPatient(patient);
-        return patient;
     }
 
 
-    public Patient editPatient(UUID id, String newFirstname, String newLastname, LocalDate newBirthday) throws NullPointerException, ServiceException {
+    public void editPatient(UUID id, String newFirstname, String newLastname, LocalDate newBirthday) throws NullPointerException, ServiceException {
         if (id == null) {
             throw new NullPointerException();
         }
@@ -82,12 +76,10 @@ public class PatientService {
         PersonalData personalData = new PersonalData(newFirstname, newLastname, newBirthday);
         patient.updatePersonalData(personalData);
         patientRepository.insertPatient(patient);
-
-        return patient;
     }
 
 
-    public Patient deletePatient(UUID patientId) throws NullPointerException, ServiceException {
+    public void deletePatient(UUID patientId) throws NullPointerException, ServiceException {
         if (patientId == null) {
             throw new NullPointerException();
         }
@@ -105,8 +97,6 @@ public class PatientService {
                 crisisInterventionArea.removeAssignedPatient();
             }
         }
-
-        return patient;
     }
 
 

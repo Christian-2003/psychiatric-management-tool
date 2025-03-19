@@ -20,7 +20,7 @@
         <configuration>
           <transformers>
             <transformer>
-              <mainClass>de.christian2003.psychiatric.Main</mainClass>
+              <mainClass>de.christian2003.psychiatric.application.PsychiatricManagementTool</mainClass>
             </transformer>
           </transformers>
         </configuration>

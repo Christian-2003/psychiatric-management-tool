@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.application.repositories;
+package de.christian2003.psychiatric.domain.repositories;
 
 import java.io.IOException;
 
