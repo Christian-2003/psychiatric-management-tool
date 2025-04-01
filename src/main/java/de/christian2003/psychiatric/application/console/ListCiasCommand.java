@@ -1,5 +1,7 @@
 package de.christian2003.psychiatric.application.console;
 
+import de.christian2003.psychiatric.domain.people.Patient;
+import de.christian2003.psychiatric.domain.services.PatientService;
 import de.christian2003.psychiatric.plugins.console.Colors;
 import de.christian2003.psychiatric.plugins.console.ConsoleWriter;
 import de.christian2003.psychiatric.application.console.metadata.CommandInfo;
@@ -13,12 +15,15 @@ public class ListCiasCommand implements Command {
 
     private final CrisisInterventionAreaService crisisInterventionAreaService;
 
+    private final PatientService patientService;
 
-    public ListCiasCommand(CrisisInterventionAreaService crisisInterventionAreaService) throws NullPointerException {
-        if (crisisInterventionAreaService == null) {
+
+    public ListCiasCommand(CrisisInterventionAreaService crisisInterventionAreaService, PatientService patientService) throws NullPointerException {
+        if (crisisInterventionAreaService == null || patientService == null) {
             throw new NullPointerException();
         }
         this.crisisInterventionAreaService = crisisInterventionAreaService;
+        this.patientService = patientService;
     }
 
 
@@ -42,7 +47,7 @@ public class ListCiasCommand implements Command {
         ConsoleWriter.print(" ", Colors.DEFAULT);
         ConsoleWriter.print("Name:", 24, Colors.DEFAULT);
         ConsoleWriter.print(" ", Colors.DEFAULT);
-        ConsoleWriter.println("Assigned Patient ID:", Colors.DEFAULT);
+        ConsoleWriter.println("Assigned Patient:", Colors.DEFAULT);
 
         //Display each crisis intervention area:
         for (CrisisInterventionArea crisisInterventionArea: crisisInterventionAreas) {
@@ -51,7 +56,18 @@ public class ListCiasCommand implements Command {
             ConsoleWriter.print(crisisInterventionArea.getRoomData().getDisplayName(), 24, Colors.DEFAULT);
             ConsoleWriter.print(" ", Colors.DEFAULT);
             if (crisisInterventionArea.hasAssignedPatient()) {
-                ConsoleWriter.println(crisisInterventionArea.getAssignedPatient().toString(), 36, Colors.GREEN);
+                Patient patient = patientService.getPatientById(crisisInterventionArea.getAssignedPatient());
+                if (patient != null) {
+                    ConsoleWriter.print(patient.getPersonalData().getFirstname(), Colors.DEFAULT);
+                    ConsoleWriter.print(" ", Colors.DEFAULT);
+                    ConsoleWriter.print(patient.getPersonalData().getLastname(), Colors.DEFAULT);
+                    ConsoleWriter.print(" (", Colors.DEFAULT);
+                    ConsoleWriter.print(patient.getPatientId().toString(), Colors.GREEN);
+                    ConsoleWriter.println(")", Colors.DEFAULT);
+                }
+                else {
+                    ConsoleWriter.println(crisisInterventionArea.getAssignedPatient().toString(), Colors.GREEN);
+                }
             }
             else {
                 ConsoleWriter.println("None", Colors.WHITE);

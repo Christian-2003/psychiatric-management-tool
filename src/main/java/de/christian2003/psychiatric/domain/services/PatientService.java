@@ -31,6 +31,11 @@ public class PatientService {
     }
 
 
+    public Patient getPatientById(UUID id) throws NullPointerException {
+        return patientRepository.getPatientById(id);
+    }
+
+
     public void createPatient(String firstname, String lastname, LocalDate birthday, UUID crisisInterventionArea) throws NullPointerException, ServiceException {
         if (firstname == null || lastname == null || birthday == null || crisisInterventionArea == null) {
             throw new NullPointerException();

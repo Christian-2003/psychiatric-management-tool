@@ -26,7 +26,7 @@ public class CommandRegistry {
         commands.put("move_patient", new MovePatientCommand(patientService));
 
         commands.put("create_cia", new CreateCiaCommand(crisisInterventionAreaService));
-        commands.put("list_cias", new ListCiasCommand(crisisInterventionAreaService));
+        commands.put("list_cias", new ListCiasCommand(crisisInterventionAreaService, patientService));
         commands.put("delete_cia", new DeleteCiaCommand(crisisInterventionAreaService));
         commands.put("edit_cia", new EditCiaCommand(crisisInterventionAreaService));
 
