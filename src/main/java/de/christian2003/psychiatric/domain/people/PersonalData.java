@@ -12,7 +12,6 @@ public final class PersonalData {
 
     private final String lastname;
 
-
     private final LocalDate birthday;
 
 

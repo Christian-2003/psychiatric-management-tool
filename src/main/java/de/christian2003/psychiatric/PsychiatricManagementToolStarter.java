@@ -10,7 +10,7 @@ import de.christian2003.psychiatric.domain.repositories.PatientRepository;
 public class PsychiatricManagementToolStarter {
 
     public static void main(String[] args) {
-        //Create repositories and services:
+        //Create repositories:
         PatientRepository patientRepository = new FilePatientRepository();
         CrisisInterventionAreaRepository crisisInterventionAreaRepository = new FileCrisisInterventionAreaRepository();
 

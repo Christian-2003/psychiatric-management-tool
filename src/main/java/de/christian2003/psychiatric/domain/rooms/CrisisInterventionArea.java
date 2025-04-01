@@ -12,13 +12,10 @@ public class CrisisInterventionArea {
     private UUID assignedPatient;
 
 
-    public CrisisInterventionArea(UUID roomId, RoomData roomData, UUID assignedPatient) throws NullPointerException {
-        if (roomId == null || roomData == null) {
-            throw new NullPointerException();
-        }
-        this.roomId = roomId;
-        this.roomData = roomData;
-        this.assignedPatient = assignedPatient;
+    private CrisisInterventionArea(Builder builder) {
+        this.roomId = builder.roomId;
+        this.roomData = builder.roomData;
+        this.assignedPatient = builder.assignedPatient;
     }
 
 
@@ -87,6 +84,37 @@ public class CrisisInterventionArea {
         builder.append(")");
 
         return builder.toString();
+    }
+
+
+    public static class Builder {
+
+        private final UUID roomId;
+
+        private final RoomData roomData;
+
+        private UUID assignedPatient;
+
+
+        public Builder(UUID roomId, RoomData roomData) throws NullPointerException {
+            if (roomId == null || roomData == null) {
+                throw new NullPointerException();
+            }
+            this.roomId = roomId;
+            this.roomData = roomData;
+        }
+
+
+        public Builder assignPatient(UUID assignedPatient) {
+            this.assignedPatient = assignedPatient;
+            return this;
+        }
+
+
+        public CrisisInterventionArea build() {
+            return new CrisisInterventionArea(this);
+        }
+
     }
 
 }

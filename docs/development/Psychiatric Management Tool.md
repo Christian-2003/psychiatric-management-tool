@@ -112,11 +112,6 @@ Die Interfaces sind offen für Erweiterungen, da sie von anderen Klassen impleme
 
 Die Interfaces sind geschlossen für Änderungen, da es sich hierbei lediglich um Interfaces handelt und für die Erweiterungen (bspw. die Unterstützung einer lokalen Datenbank) keine Modifizierung bisherigen Quellcodes benötigt wird.
 
-###### Liskov'sches Substitutionsprinzip
-Das Liskov'sche Substitutionsprinzip besagt, dass alle Klassen im Quellcode durch ihre Unterklassen ersetzt werden können, ohne dabei undefiniertes Verhalten zu erzeugen. Obwohl das Projekt keine Vererbungen verwendet, kann das Prinzip durch die Interfaces erklärt werden, die zur Realisierung der Repositories verwendet werden.
-
-Die Geschäftslogik der Anwendung interagiert ausschließlich mit den definierten Interfaces. Die eigentliche Implementierung der Interfaces ist für das Funktionieren also unerheblich. Daher ist es möglich, an jeder Stelle des Quellcodes die entsprechenden konkreten Implementierungen anstatt der Interfaces einzusetzen.
-
 ###### Interface Segregation-Prinzip
 Das Interface Segregation-Prinzip erfordert, dass mehrere kleinere Interfaces einem (oder wenigen) großen Interfaces bevorzugt werden sollen. So können Klassen ausschließlich die Interfaces implementieren, die auch benötigt werden.
 
@@ -127,6 +122,13 @@ Das Depdendency Inversion-Prinzip besagt, dass innere Schichten (also beispielsw
 
 Im Programm kann man dieses Prinzip ebenfalls an den Repositories erkennen. Im Application Code sind für die einzelnen Repositories jeweils Interfaces definiert, über welche auf die Repositories zugegriffen sind. Die konkrete Implementierung, die sich hinter dem Interface verbirgt, ist dabei für die inneren Schichten unerheblich. Dadurch sind die inneren (langlebigen) Schichten nicht von konkreten Implementiertungen äußerer Schichten abhängig.
 
+###### Pure Fabrication
+Neben den oben genannten Programmierprinzipien verwendet das Programm auch das Designprinzip Pure Fabrication. Dieses Prinzip besagt, dass der Quellcode Bestandteile (bspw. Klassen) enthält, die sich nicht auf die Problemdomäne übertragen lassen.
+
+Hierzu zählen bspw. die Repository-Klassen `FilePatientRepository` und `FileCrisisInterventionAreaRepository`. Diese Klassen dienen aussschließlich dazu, innerhalb des Programmes auf die zugrunde liegenden Daten zuzugreifen. Dementsprechend sind diese Klassen auch nicht auf die Problemdomäne zu übertragen.
+
+Ein weiteres Beispiel für dieses Designprinzip sind die Domain Services `PatientService` und `CrisisInterventionAreaService`. Diese Domain Services ermöglichen das Erzeugen, Löschen und Manipulieren von Entitäten (bspw. `Patient` und `CrisisInterventionArea`) und verhindern dabei Invarianten. Daher lassen sich auch diese Domain Services nicht auf Bestandteile der Problemdomäne übertragen.
+
 <br/>
 
 ## 4 Refactoring
@@ -135,11 +137,17 @@ Hello, World!
 <br/>
 
 ## 5 Entwurfsmuster
-Hello, World!
+Als Entwurfsmuster verwendet die App das Builder-Muster, um einen KIB zu erzeugen. Das Builder-Muster wird mittels der `CrisisInterventionArea.Builder`-Klasse realisiert.
+
+Dieses Entwurfsmuster wird verwendet, da die Klasse `CrisisInterventionArea` auch optionale Attribute hat, was mittels dieses Erzeugungsmusters hervorragend kommuniziert werden kann. Die für den Kriseninterventionsbereich erforderlichen Attribute `roomId` und `roomData` werden dem Builder über den Konstruktor übergeben. Das optionale Attribut `patientId`, welches den eingewiesenen Patienten darstellt, wird über eine Methode `assignPatient` übergeben.
+
+Hierdurch wird dem Entwickler kommuniziert, dass die Angabe eines zugewiesenen Patienten bei der Erzeugung optional ist. Die Angabe ist optional, da es auch KIBs geben kann, denen kein Patient zugewiesen ist.
+
+Der Builder ist als Fluid-Klasse realisiert, wodurch bei jedem Aufruf einer Methode eine Referenz zur Builder-Instanz zurückgegeben wird. Dies vereinfacht den Umgang mit dem Builder und erzeugt übersichtlicheren Code.
 
 <br/>
 
 ***
 
-2025-03-06  
+2025-04-01  
 &copy; 2025 Christian-2003
