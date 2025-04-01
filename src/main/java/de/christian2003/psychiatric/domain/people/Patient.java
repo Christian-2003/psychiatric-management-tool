@@ -2,11 +2,10 @@ package de.christian2003.psychiatric.domain.people;
 
 import java.util.UUID;
 
+
 public class Patient {
 
     private final UUID patientId;
-
-    private UUID assignedNurse;
 
     private PersonalData personalData;
 
@@ -35,17 +34,6 @@ public class Patient {
         this.personalData = personalData;
     }
 
-    public UUID getAssignedNurse() {
-        return assignedNurse;
-    }
-
-    public void assignNurse(UUID assignedNurse) throws NullPointerException {
-        if (assignedNurse == null) {
-            throw new NullPointerException();
-        }
-        this.assignedNurse = assignedNurse;
-    }
-
 
     @Override
     public int hashCode() {
@@ -67,12 +55,6 @@ public class Patient {
         builder.append(": ");
         builder.append(personalData);
         builder.append(" (Assigned Nurse: ");
-        if (assignedNurse == null) {
-            builder.append("None");
-        }
-        else {
-            builder.append(assignedNurse);
-        }
         builder.append(")");
         return builder.toString();
     }
