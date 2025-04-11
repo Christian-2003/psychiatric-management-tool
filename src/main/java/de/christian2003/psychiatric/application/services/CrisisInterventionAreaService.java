@@ -30,7 +30,9 @@ public class CrisisInterventionAreaService {
             throw new NullPointerException();
         }
         RoomData roomData = new RoomData(displayName);
-        CrisisInterventionArea crisisInterventionArea = new CrisisInterventionArea.Builder(UUID.randomUUID(), roomData).build();
+        CrisisInterventionArea crisisInterventionArea = new CrisisInterventionArea.Builder(UUID.randomUUID(), roomData)
+                .assignPatient(null)
+                .build();
         crisisInterventionAreaRepository.insertCrisisInterventionArea(crisisInterventionArea);
     }
 

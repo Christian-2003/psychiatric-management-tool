@@ -47,8 +47,7 @@ Klasse | Taktisches Muster | Begründung
 `Patient` | Entity | Die Klasse `Patient` beinhaltet Daten, die einen Patienten betreffen. Zu diesen Daten gehören unter Anderem persönliche Daten (also `PersonalData`), sowie eine eindeutige UUID, die den Patienten innerhalb des Programmes identifiziert. Aufgrund dieser UUID eignet sich eine Realisierung als Entity hervorragend.
 `RoomData` | ValueObject | Die Klasse `RoomData` beinhaltet alle Daten über einen Raum der psychiatrischen Einrichtung. Aktuell beinhaltet diese Klasse lediglich ein Attribut, welches einen Anzeigenamen für einen Raum speichert. Später kann die Klasse jedoch erweitert werden um andere wichtige Daten über Räume zu beinhalten, wie beispielsweise die Fläche eines Raumes, o.Ä. Da sich die Daten dieser Klasse üblicherweise nicht ändern, eigenet sich hier eine Realisierung durch Value Objects hervorragend.
 `CrisisInterventionArea` | Entity | Die Klasse `CrisisInterventionArea` modelliert einen KIB, dem ein Patient zugewiesen werden kann. Sie besteht aus Raumdaten (also `RoomData`) und einer UUID, welche den KIB im Programm eindeutig identifiziert. Außerdem speichern Objekte der Klasse die UUID des Patienten, welcher dem KIB zugeordnet ist. Ist dem KIB kein Patient zugewiesen, so besitzt diese UUID den Wert `null`. Dies kann entsprechend einer Methode `hasAssignedPatient()` überprüft werden. Da die Assoziation zwischen Patienten und KIB über die Klasse `CrisisInterventionArea` realisiert ist, kann maximal ein Patient pro KIB zugeordnet werden, was den Anforderungen entspricht. Durch die vorhandene ID, die den KIB eindeutig identifiziert, und der zugeweisene Patient jederzeit geändert werden kann, eignet sich eine Realisierung als Entity.
-`PatientService` | Domain Service | Die Klasse `PatientService` ermöglicht das Erzeugen, Bearbeiten, Abfragen und Löschen von Patienten. Dies ist nötig, da beispielsweise bei der Erzeugung eines Patienten, direkt ein freier KIB belegt werden muss. Ebenfalls muss beim Löschen eines Patienten dessen Assoziation im belegten KIB entfernt werden. Daher ist hier ein Domain Service notwendig.
-`CrisisInterventionAreaService` | Domiain Service | Die Klasse `CrisisInterventionAreaService` ermöglicht das Erzeugen, Bearbeiten, Abfragen und Löschen von KIBs. Ähnlich wie bei Patienten ist beim Löschen eines KIB darauf zu achten, dass dieser von keinem Patienten belegt ist. Daher ist auch hier eine Realisierung als Domain Service notwendig.
+`PatientMover` | Domain Service | Die Klasse `PatientMover` ermöglicht das Zuweisen eines Patienten zu einem KIB. Dabei wird diese Funktion in einem eigenständigen Domain Service realisiert, da diese Aktion aus mehreren Schritten besteht. Um einen Patienten einem KIB zuzuweisen, muss zuerst überprüft werden, ob der KIB nicht durch einen anderen Patienten belegt ist. Anschließend muss der Patient aus dem KIB, welchem er aktuell zugewiesen ist, entfernt werden. Anschließend muss der Patient dem neuen KIB zugewiesen werden.
 
 <br/>
 
@@ -66,15 +65,14 @@ Der Domain Code stellt die innerste Schicht der Anwendung dar. Die Schicht enth�
 
 Für die einzelnen Entitäten, die in dieser Schicht definiert sind, werden im Domain Code ebenfalls Repository-Interfaces (`PatientRepsoitory` und `CrisisInterventionAreaRepository`) definiert, die in höheren Schichten implementiert werden.
 
-Für die einzelnen Entitäten sind im Domain Code ebenfalls Domain Services definiert (`PatientService` und `CrisisInterventionAreaService`). Diese Services erlauben das Erstellen, Bearbeiten und Löschen von Entitäten und stellen dabei sicher, dass die Entitäten keine Invarianten zulassen. Beispielsweise werden unter Anderem folgende Invarianten abgefangen:
-* Patient wird erstellt und keinem (leeeren) KIB zugeordnet
-* KIB wird gelöscht während ein Patient diesem zugewiesen ist
-* Patient wird einem bereits belegten KIB zugewiesen
+Zudem enthält diese Schicht einen Domain Service `PatientMover`, welcher [hier](#analyse-und-begründung-der-verwendeten-muster) genauer erläutert wird.
 
 ###### Application Code
 Der Application Code enthält alle Klassen und Interfaces, die innerhalb der Anwendung weitläufig verwendet werden.
 
 Dies bedeutet, dass in dieser Schicht die Implementierung aller Befehle enthalten ist, die über die Kommandozeile aufgerufen werden können. Zu diesen Befehlen zählen beispielsweise `CreatePatientCommand`, welcher einen neuen Patienten erstellt oder `ListCiasCommand`, welcher alle verfügbaren KIBs auflistet. Um in den äußeren Schichten möglichst unabhängig von der Implementierung der Befehle zu sein, implementieren diese Klassen jeweils das Interface `Command`. Über dieses Interface greifen die äußeren Schichten auf die einzelnen Befehle zu und führen diese aus.
+
+Zudem enthält diese Schicht die einzelnen Use-Cases der Anwendung, welche in den Klassen `PatientService` und `CrisisInterventionAreaService` definiert sind. Diese Klassen ermöglichen jeweils das Erzeugen, Bearbeiten und Löschen von Patienten und KIBs. Dabei wird auf Instanzen dieser Klassen durch die einzelnen CLI-Commands (siehe oben) zugegriffen, um das **Single Responsibility**-Prinzip zu erfüllen.
 
 ###### Plugins
 Diese Schicht enthält die konkrete Implementierung der Repositories. Dabei sind die Repositories derzeit lediglich so implementiert, dass die Daten aus lokalen JSON-Dateien geladen werden. Weitere Implementierungen können in Zukunft jedoch hinzugefügt werden, sodass andere Datenquellen (wie beispielsweise eine lokale Datenbank oder eine REST-API) für die Anwendung herangezogen werden können.
