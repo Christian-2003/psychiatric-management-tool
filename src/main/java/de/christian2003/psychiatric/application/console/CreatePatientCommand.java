@@ -4,10 +4,8 @@ import de.christian2003.psychiatric.plugins.console.Colors;
 import de.christian2003.psychiatric.plugins.console.ConsoleWriter;
 import de.christian2003.psychiatric.application.console.metadata.CommandInfo;
 import de.christian2003.psychiatric.application.console.metadata.ParameterInfo;
-import de.christian2003.psychiatric.domain.services.PatientService;
-import de.christian2003.psychiatric.domain.services.ServiceException;
-import de.christian2003.psychiatric.domain.people.Patient;
-
+import de.christian2003.psychiatric.application.services.PatientService;
+import de.christian2003.psychiatric.application.services.ServiceException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -79,7 +77,7 @@ public class CreatePatientCommand implements Command {
         }
 
         try {
-           patientService.createPatient(firstname, lastname, birthday, cia);
+            patientService.createPatient(firstname, lastname, birthday, cia);
         }
         catch (ServiceException e) {
             ConsoleWriter.println(e.getMessage(), Colors.RED);

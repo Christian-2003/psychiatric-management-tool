@@ -1,10 +1,12 @@
-package de.christian2003.psychiatric.domain.services;
+package de.christian2003.psychiatric.application.services;
 
 import de.christian2003.psychiatric.domain.repositories.CrisisInterventionAreaRepository;
 import de.christian2003.psychiatric.domain.repositories.PatientRepository;
 import de.christian2003.psychiatric.domain.people.Patient;
 import de.christian2003.psychiatric.domain.people.PersonalData;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;
+import de.christian2003.psychiatric.domain.services.MoveException;
+import de.christian2003.psychiatric.domain.services.PatientMover;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -121,26 +123,15 @@ public class PatientService {
         if (crisisInterventionArea == null) {
             throw new ServiceException("Cannot move patient, since no crisis intervention area with ID \"" + crisisInterventionAreaId + "\" exists.");
         }
-        if (crisisInterventionArea.hasAssignedPatient()) {
-            if (crisisInterventionArea.getAssignedPatient().equals(patientId)) {
-                throw new ServiceException("Patient \"" + patientId + "\" is already assigned to crisis intervention area \"" + crisisInterventionAreaId + "\".");
-            }
-            else {
-                throw new ServiceException("Cannot move patient, since crisis intervention area with ID \"" + crisisInterventionAreaId + "\" already has assigned patient.");
-            }
-        }
-
-        //Remove patient from all current crisis intervention areas:
-        List<CrisisInterventionArea> crisisInterventionAreas = crisisInterventionAreaRepository.getAllCrisisInterventionAreas();
-        for (CrisisInterventionArea cia : crisisInterventionAreas) {
-            if (cia.hasAssignedPatient() && cia.getAssignedPatient().equals(patientId)) {
-                cia.removeAssignedPatient();
-            }
-        }
 
         //Assign patient to crisis intervention area:
-        crisisInterventionArea.assignPatient(patientId);
-        crisisInterventionAreaRepository.insertCrisisInterventionArea(crisisInterventionArea);
+        PatientMover patientMover = new PatientMover(crisisInterventionAreaRepository);
+        try {
+            patientMover.movePatientTo(patient, crisisInterventionArea);
+        }
+        catch (MoveException e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 
 }

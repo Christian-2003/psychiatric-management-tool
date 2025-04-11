@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.domain.services;
+package de.christian2003.psychiatric.application.services;
 
 import de.christian2003.psychiatric.domain.repositories.CrisisInterventionAreaRepository;
 import de.christian2003.psychiatric.domain.rooms.CrisisInterventionArea;

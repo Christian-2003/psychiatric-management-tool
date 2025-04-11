@@ -3,7 +3,7 @@ package de.christian2003.psychiatric.application.console;
 import de.christian2003.psychiatric.plugins.console.Colors;
 import de.christian2003.psychiatric.plugins.console.ConsoleWriter;
 import de.christian2003.psychiatric.application.console.metadata.CommandInfo;
-import de.christian2003.psychiatric.domain.services.PatientService;
+import de.christian2003.psychiatric.application.services.PatientService;
 import de.christian2003.psychiatric.domain.people.Patient;
 
 import java.time.format.DateTimeFormatter;

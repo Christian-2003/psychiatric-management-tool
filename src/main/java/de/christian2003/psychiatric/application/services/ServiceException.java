@@ -1,4 +1,4 @@
-package de.christian2003.psychiatric.domain.services;
+package de.christian2003.psychiatric.application.services;
 
 public class ServiceException extends Exception {
 

@@ -1,7 +1,7 @@
 package de.christian2003.psychiatric.plugins.console;
 
-import de.christian2003.psychiatric.domain.services.CrisisInterventionAreaService;
-import de.christian2003.psychiatric.domain.services.PatientService;
+import de.christian2003.psychiatric.application.services.CrisisInterventionAreaService;
+import de.christian2003.psychiatric.application.services.PatientService;
 import java.util.Scanner;
 
 
