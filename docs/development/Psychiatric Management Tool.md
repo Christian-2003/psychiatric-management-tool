@@ -1,4 +1,4 @@
-<img src="docs/img/icon.png" height="150" align="right">
+<img src="../img/icon.png" height="150" align="right">
 
 # Psychiatric Management Tool
 > **Important:** Please note that the contents of this file are in German, since this file is important for a project at a German university.
