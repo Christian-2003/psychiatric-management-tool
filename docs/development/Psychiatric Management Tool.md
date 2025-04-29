@@ -132,10 +132,10 @@ Ein weiteres Beispiel für dieses Designprinzip sind die Domain Services `Patien
 ## 4 Refactoring
 Folgende Code Smells wurden identifiziert:
 
-###### Methode zu lang
+###### Methode `execute(Map<String, String)` zu lang
 Klasse: `de.christian2003.psychiatric.application.console.CreatePatientCommand`
 
-Die Methode `execute(Map<String, String)` hat eine Länge von 57 Zeilen. Dabei wird zu Beginn der Methode aus der übergebenen Map die Parameter extrahiert, die für die Ausführung des CLI-Kommandos benötigt werden.
+Die Methode `execute(Map<String, String)` hat eine Länge von **57** Zeilen. Dabei wird zu Beginn der Methode aus der übergebenen Map die Parameter extrahiert, die für die Ausführung des CLI-Kommandos benötigt werden.
 
 Mit diesen Parametern wird dann anschließend ein neuer Patient erstellt und gespeichert.
 
@@ -145,7 +145,19 @@ Das Extrahieren der benötigten Parameter kann aus der Methode in die nachfolgen
 * `getBirthdayFromArgs(Map<String, String>)`
 * `getCiaFromArgs(Map<String, String>)`
 
-Dadurch wird die Länge der Methode `execute(Map<String, String)` reduziert. Des Weiteren kann dadurch das Single Responsibility Prinzip besser eingehalten werden, da die Methoden nun spezifischere Aufgaben erfüllen.
+Dadurch wird die Länge der Methode `execute(Map<String, String)` reduziert. Des Weiteren kann dadurch das Single Responsibility Prinzip besser eingehalten werden, da die Methoden nun spezifischere Aufgaben erfüllen.`
+
+
+###### Methode `startApp()` zu lang
+Klasse: `de.christian2003.psychiatric.application.PsychiatricManagementTool`
+
+Die Methode `startApp()` hat eine Länge von **53** Zeilen. Ein Großteil des Quellcodes der Methode wird zum Laden und Speichern der Daten aufgewändet.
+
+Daher wird das Laden und Speichern der Daten in die folgenden Methoden ausgelagert:
+* `loadData()`
+* `saveData()`
+
+Dadurch wird die Länge der Methode `startApp()` deutlich reduziert. Außerdem kann das Single Responsibility Prinzip besser eingehalten werden, da nun das Laden und Speichern gesondert von Methoden behandelt wird. 
 
 <br/>
 
@@ -162,5 +174,5 @@ Der Builder ist als Fluid-Klasse realisiert, wodurch bei jedem Aufruf einer Meth
 
 ***
 
-2025-04-01  
+2025-04-29  
 &copy; 2025 Christian-2003

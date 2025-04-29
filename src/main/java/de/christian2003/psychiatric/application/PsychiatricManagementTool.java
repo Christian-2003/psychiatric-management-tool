@@ -36,7 +36,20 @@ public class PsychiatricManagementTool {
         ConsoleWriter.println("   Psychiatric Management Tool (PMT) version 1.0.0", Colors.DEFAULT);
         ConsoleWriter.println("=====================================================", Colors.DEFAULT);
 
-        //Load data if possible:
+        loadData();
+
+        ConsoleWriter.println("Type 'help' for more information.", Colors.DEFAULT);
+        ConsoleWriter.println("Type 'exit' to close the app and save data.", Colors.DEFAULT);
+
+        //Create console:
+        ConsoleAdapter consoleAdapter = new ConsoleAdapter(patientService, crisisInterventionAreaService);
+        consoleAdapter.start();
+
+        saveData();
+    }
+
+
+    private void loadData() {
         try {
             if (patientRepository instanceof SavableRepository savableRepository) {
                 savableRepository.loadData();
@@ -55,17 +68,11 @@ public class PsychiatricManagementTool {
         }
         catch (IOException e) {
             ConsoleWriter.println("Cannot load data: " + e.getMessage(), Colors.RED);
-            return;
         }
+    }
 
-        ConsoleWriter.println("Type 'help' for more information.", Colors.DEFAULT);
-        ConsoleWriter.println("Type 'exit' to close the app and save data.", Colors.DEFAULT);
 
-        //Create console:
-        ConsoleAdapter consoleAdapter = new ConsoleAdapter(patientService, crisisInterventionAreaService);
-        consoleAdapter.start();
-
-        //Save data:
+    private void saveData() {
         try {
             if (patientRepository instanceof SavableRepository savableRepository) {
                 savableRepository.saveData();
