@@ -1,3 +1,5 @@
+<img src="docs/img/icon.png" height="150" align="right">
+
 # Psychiatric Management Tool
 The psychiatric management tool can manage a psychiatric institution, it's patients, personnel and rooms.
 
