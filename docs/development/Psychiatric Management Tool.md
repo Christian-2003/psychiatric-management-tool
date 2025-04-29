@@ -130,7 +130,22 @@ Ein weiteres Beispiel für dieses Designprinzip sind die Domain Services `Patien
 <br/>
 
 ## 4 Refactoring
-Hello, World!
+Folgende Code Smells wurden identifiziert:
+
+###### Methode zu lang
+Klasse: `de.christian2003.psychiatric.application.console.CreatePatientCommand`
+
+Die Methode `execute(Map<String, String)` hat eine Länge von 57 Zeilen. Dabei wird zu Beginn der Methode aus der übergebenen Map die Parameter extrahiert, die für die Ausführung des CLI-Kommandos benötigt werden.
+
+Mit diesen Parametern wird dann anschließend ein neuer Patient erstellt und gespeichert.
+
+Das Extrahieren der benötigten Parameter kann aus der Methode in die nachfolgende Methoden ausgelagert werden:
+* `getFirstnameFromArgs(Map<String, String>)`
+* `getLastnameFromArgs(Map<String, String>)`
+* `getBirthdayFromArgs(Map<String, String>)`
+* `getCiaFromArgs(Map<String, String>)`
+
+Dadurch wird die Länge der Methode `execute(Map<String, String)` reduziert. Des Weiteren kann dadurch das Single Responsibility Prinzip besser eingehalten werden, da die Methoden nun spezifischere Aufgaben erfüllen.
 
 <br/>
 

@@ -27,52 +27,12 @@ public class CreatePatientCommand implements Command {
 
     @Override
     public void execute(Map<String, String> args) {
-        String firstname = null;
-        if (args.containsKey("firstname")) {
-            firstname = args.get("firstname");
-        }
-        else {
-            ConsoleWriter.println("Missing argument 'firstname'.", Colors.RED);
-            return;
-        }
+        String firstname = getFirstnameFromArgs(args);
+        String lastname = getLastnameFromArgs(args);
+        LocalDate birthday = getBirthdayFromArgs(args);
+        UUID cia = getCiaFromArgs(args);
 
-        String lastname = null;
-        if (args.containsKey("lastname")) {
-            lastname = args.get("lastname");
-        }
-        else {
-            ConsoleWriter.println("Missing argument 'lastname'.", Colors.RED);
-            return;
-        }
-
-        LocalDate birthday = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        if (args.containsKey("birthday")) {
-            try {
-                birthday = LocalDate.parse(args.get("birthday"), formatter);
-            }
-            catch (Exception e) {
-                ConsoleWriter.println("Unsupported date format \"" + args.get("birthday") + "\".", Colors.RED);
-                return;
-            }
-        }
-        else {
-            ConsoleWriter.println("Missing argument 'birthday'.", Colors.RED);
-            return;
-        }
-
-        UUID cia = null;
-        if (args.containsKey("cia")) {
-            try {
-                cia = UUID.fromString(args.get("cia"));
-            }
-            catch (Exception e) {
-                ConsoleWriter.println("Invalid ID \"" + args.get("cia") + "\".", Colors.RED);
-                return;
-            }
-        }
-        else {
-            ConsoleWriter.println("Missing argument 'cia'.", Colors.RED);
+        if (firstname == null || lastname == null || birthday == null || cia == null) {
             return;
         }
 
@@ -101,6 +61,62 @@ public class CreatePatientCommand implements Command {
                         "cia", new ParameterInfo(true, "ID of the crisis intervention area for the patient")
                 )
         );
+    }
+
+
+    private String getFirstnameFromArgs(Map<String, String> args) {
+        String firstname = null;
+        if (args.containsKey("firstname")) {
+            firstname = args.get("firstname");
+        }
+        else {
+            ConsoleWriter.println("Missing argument 'firstname'.", Colors.RED);
+        }
+        return firstname;
+    }
+
+    private String getLastnameFromArgs(Map<String, String> args) {
+        String lastname = null;
+        if (args.containsKey("lastname")) {
+            lastname = args.get("lastname");
+        }
+        else {
+            ConsoleWriter.println("Missing argument 'lastname'.", Colors.RED);
+        }
+        return lastname;
+    }
+
+    private LocalDate getBirthdayFromArgs(Map<String, String> args) {
+        LocalDate birthday = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        if (args.containsKey("birthday")) {
+            try {
+                birthday = LocalDate.parse(args.get("birthday"), formatter);
+            }
+            catch (Exception e) {
+                ConsoleWriter.println("Unsupported date format \"" + args.get("birthday") + "\".", Colors.RED);
+            }
+        }
+        else {
+            ConsoleWriter.println("Missing argument 'birthday'.", Colors.RED);
+        }
+        return birthday;
+    }
+
+    private UUID getCiaFromArgs(Map<String, String> args) {
+        UUID cia = null;
+        if (args.containsKey("cia")) {
+            try {
+                cia = UUID.fromString(args.get("cia"));
+            }
+            catch (Exception e) {
+                ConsoleWriter.println("Invalid ID \"" + args.get("cia") + "\".", Colors.RED);
+            }
+        }
+        else {
+            ConsoleWriter.println("Missing argument 'cia'.", Colors.RED);
+        }
+        return cia;
     }
 
 }
