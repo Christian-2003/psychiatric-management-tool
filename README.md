@@ -4,6 +4,7 @@
 ![GitHub](https://img.shields.io/github/license/Christian-2003/psychiatric-management-tool?color=red)
 ![GitHub](https://img.shields.io/github/issues/Christian-2003/psychiatric-management-tool?color=purple)
 ![GitHub](https://img.shields.io/github/repo-size/Christian-2003/psychiatric-management-tool?color=blue)
+
 The psychiatric management tool (PMT) can manage a psychiatric institution, it's patients and rooms. The program is implemented as CLI tool and is easy to use.
 
 ###### Table of Contents
@@ -18,6 +19,8 @@ The psychiatric management tool (PMT) can manage a psychiatric institution, it's
 
 ## Description
 The PMT allows you to manage an unlimited number of patients within a psychiatric institution. Each patient must be assigned to a crisis intervention area.
+
+There is a detailed description of the project [here](docs/development/Psychiatric%20Management%20Tool.md) _(German only)_. You may take a look at it if you are interested in the architecture and domain driven design principles utilized by the program.
 
 ###### Used Technologies
 The application is developed with Java through the IntelliJ IDEA. Therefore, the project is built using Maven.
@@ -49,14 +52,14 @@ Next, run the main method in the class `de.christian2003.psychiatric.application
 After running the main class as described [here](#install-the-program), a CLI opens which allows you to manage your psychiatric institution.
 
 CLI commands have the following structure:
-```bat
+```bnf
 <command> <arg1 name>=<arg1 value> <arg2 name>=<arg2 value> ...
 ```
 
 For example, create a new crisis intervention area with the name "RoomForMyPatient" as follows:
 ```bat
 create cia
-name=RoomForMyPatient
+    name=RoomForMyPatient
 ```
 
 To list all crisis intervention areas that are available within the program, call the following:
