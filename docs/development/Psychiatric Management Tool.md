@@ -77,7 +77,7 @@ Zudem enthält diese Schicht die einzelnen Use-Cases der Anwendung, welche in de
 ###### Plugins
 Diese Schicht enthält die konkrete Implementierung der Repositories. Dabei sind die Repositories derzeit lediglich so implementiert, dass die Daten aus lokalen JSON-Dateien geladen werden. Weitere Implementierungen können in Zukunft jedoch hinzugefügt werden, sodass andere Datenquellen (wie beispielsweise eine lokale Datenbank oder eine REST-API) für die Anwendung herangezogen werden können.
 
-Außerdem enthält die Schicht die `ConsoleAdapter`-Klasse, welche die Befehlseingabe über die Kommandozeile ermöglicht. Eingegebene Befehle werden durch den `CommandParser` geparst und auf implementierte Befehle aus der [Application Code](#application-code)-Schicht über die `CommandRegistry` gemappt. Diese Aufteilung ist zur Erfüllung Des Single Responsibility-Prinzip durchgeführt.
+Außerdem enthält die Schicht die `ConsoleAdapter`-Klasse, welche die Befehlseingabe über die Kommandozeile ermöglicht. Eingegebene Befehle werden durch den `CommandParser` geparst und auf implementierte Befehle aus der [Application Code](#application-code)-Schicht über die `CommandRegistry` gemappt. Diese Aufteilung ist zur Erfüllung des Single Responsibility-Prinzip durchgeführt.
 
 Außerdem enthält diese Schicht alle Schnittstellen, über welche die Anwendung mit externem Quellcode kommuniziert. Aktuell enthält die Schicht lediglich eine Klasse `FileSerializer`, welche strukturierte JSON-Dateien lesen und schreiben kann. Dazu wird die Gson-Bibliothek von Google verwendet. Da es sich hierbei um eine externe Software handelt, wird der Zugriff auf diese Bibliothek durch die Klasse `FileSerializer` abstrahiert. Dadurch entsteht im Quellcode eine einzige zentrale Stelle, in welcher der Serialisierungsalgorithmus bei Bedarf ausgetauscht werden kann.
 
@@ -135,9 +135,7 @@ Folgende Code Smells wurden identifiziert:
 ###### Methode `execute(Map<String, String)` zu lang
 Klasse: `de.christian2003.psychiatric.application.console.CreatePatientCommand`
 
-Die Methode `execute(Map<String, String)` hat eine Länge von **57** Zeilen. Dabei wird zu Beginn der Methode aus der übergebenen Map die Parameter extrahiert, die für die Ausführung des CLI-Kommandos benötigt werden.
-
-Mit diesen Parametern wird dann anschließend ein neuer Patient erstellt und gespeichert.
+Die Methode `execute(Map<String, String)` hat eine Länge von **57** Zeilen. Dabei wird zu Beginn der Methode aus der übergebenen Map die Parameter extrahiert, die für die Ausführung des CLI-Kommandos benötigt werden. Mit diesen Parametern wird dann anschließend ein neuer Patient erstellt und gespeichert.
 
 Das Extrahieren der benötigten Parameter kann aus der Methode in die nachfolgende Methoden ausgelagert werden:
 * `getFirstnameFromArgs(Map<String, String>)`
